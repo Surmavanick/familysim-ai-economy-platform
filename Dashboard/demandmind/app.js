@@ -226,7 +226,21 @@ function renderForecastPanel() {
     Object.values(bd.brands || {}).forEach(b => (b.top_categories || []).forEach(c => { cats[c.name] = (cats[c.name] || 0) + c.units; }));
     return Object.entries(cats).sort((a, b) => b[1] - a[1]).slice(0, 10);
   })();
-  const withWeekly = Object.entries(sku).filter(([, e]) => e.weekly_buckets && e.weekly_buckets.length)
+  // The sim's final weekly bucket is often a partial week (started but not
+  // finished when the run ended) — its units cover fewer days than a full
+  // week, so every SKU reads as a fake demand drop right at the end. Drop it
+  // wherever it's < 6 days into the simulation's end_date, once, so the
+  // trend arrow and the heatmap below never disagree about it.
+  const endStr = usingDemo ? null : ((liveReport && liveReport.simulation_metadata) || {}).end_date;
+  const endTs = endStr ? Date.parse(endStr + "T00:00:00Z") : null;
+  const fullWeeklyBuckets = buckets => {
+    if (!endTs || buckets.length < 2) return buckets;
+    const lastTs = Date.parse(buckets[buckets.length - 1].start + "T00:00:00Z");
+    return (endTs - lastTs) < 6 * 86400000 ? buckets.slice(0, -1) : buckets;
+  };
+  const withWeekly = Object.entries(sku)
+    .map(([bc, e]) => [bc, { ...e, weekly_buckets: fullWeeklyBuckets(e.weekly_buckets || []) }])
+    .filter(([, e]) => e.weekly_buckets && e.weekly_buckets.length)
     .sort((a, b) => b[1].units - a[1].units);
   const skuRows = withWeekly.slice(0, 12).map(([bc, e]) => {
     const wk = e.weekly_buckets.map(w => w.units);
@@ -251,12 +265,7 @@ function renderForecastPanel() {
   if (rows.length && typeof Highcharts !== "undefined") {
     const weekSet = new Set();
     rows.forEach(([, e]) => e.weekly_buckets.forEach(w => weekSet.add(w.start)));
-    let weeks = [...weekSet].sort();
-    // drop a partial final week (< 6 full days inside the sim window) — it reads as
-    // a false demand drop across every SKU.
-    const endStr = ((liveReport && liveReport.simulation_metadata) || {}).end_date;
-    const endTs = endStr ? Date.parse(endStr + "T00:00:00Z") : null;
-    if (endTs && weeks.length > 1) weeks = weeks.filter(wk => (endTs - Date.parse(wk + "T00:00:00Z")) >= 6 * 86400000);
+    const weeks = [...weekSet].sort(); // partial final week already dropped in withWeekly above
     const fmt = iso => { try { return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short" }); } catch (_) { return iso; } };
     const yCats = rows.map(([bc]) => "SKU " + String(bc).slice(-6));
     const data = [];
