@@ -199,13 +199,25 @@ def _load_sim_report():
         return {}
 
 
+# data/raw/retail_stores.json predates the Kalata rebrand and still carries
+# the old "2 Nabiji" listing (chain_slug "2nabiji", 105 rows) alongside the
+# current "Kalata" listing (chain_slug "kalata", 89 rows) as if they were two
+# different chains. "kalata" is the one BRAND_STORE_COUNT/data.js already
+# treat as the real current count, so the old listing is dropped here as a
+# stale duplicate rather than double-counting the same chain.
+_STORE_GEO_DROP_SLUGS = {"2nabiji"}
+_STORE_GEO_BRAND_ALIASES = {"kalata": "2nabiji"}
+
+
 def _store_locations_payload():
     """Real store universe (id/name/chain/lat/lng/address) from the curated
     store geography, joined by exact name with this run's simulated per-store
     demand (spend/units/visits/avg_ticket). Stores the simulation never
     visited are still returned (has_demand=False) so the map shows the real
     footprint, not just the sampled subset — same absence-is-zero principle
-    as sku_breakdown."""
+    as sku_breakdown. Filtered to the 4 curated brands — the raw geography
+    file covers 18 real Tbilisi chains, most of which aren't part of this
+    platform."""
     if not STORES_JSON_PATH.exists():
         return {"stores": [], "meta": {"total_stores": 0, "stores_with_demand": 0}}
     try:
@@ -220,12 +232,18 @@ def _store_locations_payload():
 
     out = []
     for s in stores:
+        raw_slug = s.get("chain_slug") or s.get("db_slug")
+        if raw_slug in _STORE_GEO_DROP_SLUGS:
+            continue
+        brand_id = _STORE_GEO_BRAND_ALIASES.get(raw_slug, raw_slug)
+        if brand_id not in CURATED_BRAND_IDS:
+            continue
         demand = by_name.get(s.get("name"))
         out.append({
             "id": s.get("id"),
             "name": s.get("name"),
             "chain": s.get("chain"),
-            "brand_id": s.get("chain_slug") or s.get("db_slug"),
+            "brand_id": brand_id,
             "lat": s.get("lat"),
             "lng": s.get("lng"),
             "district": s.get("district"),

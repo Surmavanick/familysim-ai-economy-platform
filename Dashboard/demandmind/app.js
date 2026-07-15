@@ -531,14 +531,19 @@ function renderBrandCompareChart(rows) {
 // instead a single Highcharts mapChart with a real OpenStreetMap tiledwebmap
 // base layer (Tbilisi has no useful topojson boundary data at street level),
 // plus a plain detail card + table wired by hand, same spirit at our scale.
+function loadStoreLocations() {
+  if (storeLocationsCache) return Promise.resolve(storeLocationsCache);
+  return fetch(`/store-locations?t=${Date.now()}`, { cache: "no-store" })
+    .then(r => { if (!r.ok) throw new Error("unavailable"); return r.json(); })
+    .then(data => { storeLocationsCache = data; return data; })
+    .catch(() => { storeLocationsCache = demoStoreLocations(); return storeLocationsCache; });
+}
+
 function renderStoresPanel() {
   const host = gel("panel-stores"); if (!host) return;
-  if (storeLocationsCache) return renderStoresBody(host, storeLocationsCache);
+  if (storeLocationsCache) { renderStoresBody(host, storeLocationsCache); return; }
   host.innerHTML = '<div class="pv-meta">Loading store locations…</div>';
-  fetch(`/store-locations?t=${Date.now()}`, { cache: "no-store" })
-    .then(r => { if (!r.ok) throw new Error("unavailable"); return r.json(); })
-    .then(data => { storeLocationsCache = data; renderStoresBody(host, data); })
-    .catch(() => { storeLocationsCache = demoStoreLocations(); renderStoresBody(host, storeLocationsCache); });
+  loadStoreLocations().then(data => renderStoresBody(host, data));
 }
 
 function renderStoresBody(host, data) {
