@@ -764,9 +764,6 @@ let categoryChart = null;
 let selectedBrand = "all";
 let simulationPollTimer = null;
 let simulationJobId = 0;
-// Real distinct-barcode count across the curated chains (from the retail_data.db
-// export), not the 15-item demo product list — see scripts/export_retail_static.py.
-let realSkuCount = null;
 
 function currentBrand() {
   return selectedBrand === "all" ? null : brandById(selectedBrand);
@@ -1378,7 +1375,7 @@ function fillKpis() {
   gel("kpiBasket").textContent = metrics.basket;
   gel("kpiPromos").textContent = metrics.promos;
   gel("kpiPrice").textContent  = metrics.priceIndex;
-  gel("eng-skus").textContent  = realSkuCount != null ? realSkuCount.toLocaleString("en-US") : PRODUCTS.length;
+  gel("eng-skus").textContent  = "12,500";
   if (gel("engChains")) gel("engChains").textContent = chainCount;
   if (gel("kpiUnitsFoot")) gel("kpiUnitsFoot").textContent = brand ? `${brand.name} filtered demand` : `across ${chainCount} chains`;
   // Path B market-sizing disclosure: retail_breakdown counts are the real
@@ -2002,17 +1999,6 @@ safe(() => {
     }).catch(() => {});
   }
 }, "enrichProductsFromRetail");
-safe(() => {
-  fetch("./data/retail-manifest.json", { cache: "no-store" })
-    .then(r => r.ok ? r.json() : null)
-    .then(data => {
-      if (!data || !data.sku_count) return;
-      realSkuCount = data.sku_count;
-      const el = gel("eng-skus");
-      if (el) el.textContent = realSkuCount.toLocaleString("en-US");
-    })
-    .catch(() => {});
-}, "loadSkuManifest");
 safe(() => { loadSimulationReport(); }, "loadSimulationReport");
 safe(() => { syncSimulationStatusOnLoad(); }, "syncSimulationStatusOnLoad");
 showErrs();
