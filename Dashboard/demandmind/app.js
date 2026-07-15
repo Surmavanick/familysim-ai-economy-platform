@@ -1583,6 +1583,8 @@ function destroyHC(instance) {
 function renderHero(tab) {
   const el = gel("chart-hero");
   if (!el) { heroChart = destroyChart(heroChart); heroHC = destroyHC(heroHC); return; }
+  const scaleNote = gel("heroScaleNote");
+  if (scaleNote && tab !== "trend") scaleNote.style.display = "none";
   if (tab === "trend") {                       // Highcharts Stock — Actual + AI forecast
     heroChart = destroyChart(heroChart);
     heroHC = renderHeroForecast(el);
@@ -1679,6 +1681,12 @@ function renderHeroForecast(el) {
   const scale = reportDemandScale();
   const crisisRatio = reportCrisisRatio();
   const stress = liveReport ? (liveReport.agent_wellbeing || {}).avg_stress || 0 : 0;
+  // Same "extrapolate the small simulated sample to the real target
+  // population" step already disclosed in the sidebar's Market scale row —
+  // without it, this chart's units/day reads as this run's ~2,000-person
+  // sample, not the ~300,000-person city it's meant to represent.
+  const meta = liveReport ? (liveReport.simulation_metadata || {}) : {};
+  const marketMultiplier = meta.scaling_factor || 1;
   const baseDaily = scopedSeries("daily", brand);
   const sd = demoNow;
   const baseTs = Date.UTC(sd.getUTCFullYear(), sd.getUTCMonth(), sd.getUTCDate());
@@ -1686,10 +1694,19 @@ function renderHeroForecast(el) {
   const actual = [], forecast = [];
   baseDaily.forEach((v, i) => {
     const ts = baseTs + (i - SPLIT) * DAY;
-    if (i <= SPLIT) actual.push([ts, Math.round(v * scale * brandSimulationFactor(brand) * (1 + stress * 0.0015 * (i / Math.max(1, SPLIT))))]);
-    if (i >= SPLIT) forecast.push([ts, Math.round(v * scale * brandSimulationFactor(brand) * (1 + (i - SPLIT) * 0.012 + crisisRatio * 0.35))]);
+    if (i <= SPLIT) actual.push([ts, Math.round(v * scale * marketMultiplier * brandSimulationFactor(brand) * (1 + stress * 0.0015 * (i / Math.max(1, SPLIT))))]);
+    if (i >= SPLIT) forecast.push([ts, Math.round(v * scale * marketMultiplier * brandSimulationFactor(brand) * (1 + (i - SPLIT) * 0.012 + crisisRatio * 0.35))]);
   });
   const lastTs = baseTs + (baseDaily.length - 1 - SPLIT) * DAY;
+  const scaleNote = gel("heroScaleNote");
+  if (scaleNote) {
+    if (marketMultiplier > 1 && meta.target_population) {
+      scaleNote.textContent = `Extrapolated ×${marketMultiplier} to city-wide scale — target population ${meta.target_population.toLocaleString("en-US")}.`;
+      scaleNote.style.display = "";
+    } else {
+      scaleNote.style.display = "none";
+    }
+  }
   const aColor = brand ? brand.color : "#3B6EF5";
   const fColor = "#8B5CF6";
   const grad = c => ({ linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
