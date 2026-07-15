@@ -30,7 +30,7 @@ STORES_JSON_PATH = ROOT / "data" / "raw" / "retail_stores.json"
 load_dotenv()
 
 STORE_NAME_MAP = {
-    "2nabiji": "2 Nabiji",
+    "2nabiji": "Kalata",
     "magniti": "Magniti",
     "spar": "Spar",
     "nikora": "Nikora",

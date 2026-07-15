@@ -590,7 +590,7 @@ window.addEventListener("error", function (e) {
       return '' +
         '<tr>' +
           '<td class="num-col">' + r.num + '</td>' +
-          '<td style="font-weight:700;color:#101828"><span class="chain-dot" style="background:' + brandColor(r.brandId) + '"></span>' + escapeHtml(r.store) + '</td>' +
+          '<td style="font-weight:700;color:#101828"><span class="chain-dot" style="background:' + brandColor(r.brandId) + '"></span>' + escapeHtml(brandDisplayName(r.brandId) || r.store) + '</td>' +
           '<td>' + r.last + '</td>' +
           '<td class="num-col">' + r.amount + ' ' + tag + '</td>' +
           '<td>' + r.wh + '</td>' +
