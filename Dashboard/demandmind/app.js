@@ -1601,10 +1601,12 @@ function renderHeroCategoryRadial(el) {
   heroHC = destroyHC(heroHC);
   el.innerHTML = "";
   if (typeof Highcharts === "undefined") return null;
-  const bd = retailBreakdown();
-  const cats = {};
-  Object.values((bd && bd.brands) || {}).forEach(b => (b.top_categories || []).forEach(c => { cats[c.name] = (cats[c.name] || 0) + c.units; }));
-  const top = Object.entries(cats).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  // scopedCategories() already handles the live-vs-demo fallback correctly
+  // (same helper the separate "Demand by Category" widget uses) — this tab
+  // used to read retailBreakdown() directly with no demo fallback at all,
+  // so it was permanently empty on any no-backend deploy (Vercel) and
+  // locally whenever no real simulation report existed yet.
+  const top = scopedCategories(currentBrand()).slice(0, 8).map(c => [c.name, c.units]);
   if (!top.length) {
     el.innerHTML = '<div class="pv-meta" style="padding:24px">No category demand yet — run a simulation.</div>';
     return null;
