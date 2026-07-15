@@ -153,6 +153,19 @@ const STORES = (() => {
 
 let retailMediaPromise = null;
 
+function applyRetailMediaPayload(payload) {
+  const byBarcode = {};
+  (payload.items || []).forEach(item => { byBarcode[item.barcode] = item; });
+  PRODUCTS.forEach(product => {
+    const match = byBarcode[product.barcode];
+    if (!match) return;
+    product.imageUrl = match.image_url || product.imageUrl || "";
+    product.retailName = match.name || product.name;
+    product.retailStoreSlug = match.store_slug || "";
+  });
+  return payload;
+}
+
 function enrichProductsFromRetail() {
   if (retailMediaPromise) return retailMediaPromise;
   const barcodes = PRODUCTS.map(product => product.barcode).filter(Boolean);
@@ -161,22 +174,16 @@ function enrichProductsFromRetail() {
       if (!response.ok) throw new Error("retail media unavailable (" + response.status + ")");
       return response.json();
     })
-    .then(payload => {
-      const byBarcode = {};
-      (payload.items || []).forEach(item => { byBarcode[item.barcode] = item; });
-      PRODUCTS.forEach(product => {
-        const match = byBarcode[product.barcode];
-        if (!match) return;
-        product.imageUrl = match.image_url || product.imageUrl || "";
-        product.retailName = match.name || product.name;
-        product.retailStoreSlug = match.store_slug || "";
-      });
-      return payload;
-    })
-    .catch(error => {
-      retailMediaPromise = Promise.resolve({ items: [], error: error.message });
-      return retailMediaPromise;
-    });
+    .then(applyRetailMediaPayload)
+    .catch(() =>
+      // No backend (static Vercel deploy) — fall back to a static export of
+      // the same lookup (scripts/export_product_media.py), so demo products
+      // still get real images instead of the 📦 placeholder.
+      fetch("./data/product-media.json", { cache: "no-store" })
+        .then(response => response.ok ? response.json() : { items: [] })
+        .then(applyRetailMediaPayload)
+        .catch(error => ({ items: [], error: error.message }))
+    );
   return retailMediaPromise;
 }
 
