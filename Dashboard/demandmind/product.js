@@ -635,26 +635,37 @@ window.addEventListener("error", function (e) {
   }
 
   function fetchRetailProductDetail() {
+    function applyPayload(payload) {
+      retailDetail = payload;
+      if (payload.offers && payload.offers.length) {
+        selectedStoreId = payload.offers[0].store_slug;
+      }
+      renderProductCard();
+      renderStorePicker(gel("storeSearchInput") ? gel("storeSearchInput").value : "");
+      renderForecast();
+      renderWarehouse();
+      var activeTab = (gel("ohTabs").querySelector("button.active") || {}).dataset;
+      renderRows(activeTab && activeTab.t ? activeTab.t : "history");
+      fetchSkuForecast();
+    }
     return fetch("./retail-product-detail?barcode=" + encodeURIComponent(effectiveBarcode), { cache: "no-store" })
       .then(function (response) {
-        if (!response.ok) throw new Error("retail product detail unavailable (" + response.status + ")");
+        if (!response.ok) throw new Error("unavailable (" + response.status + ")");
         return response.json();
       })
-      .then(function (payload) {
-        retailDetail = payload;
-        if (payload.offers && payload.offers.length) {
-          selectedStoreId = payload.offers[0].store_slug;
-        }
-        renderProductCard();
-        renderStorePicker(gel("storeSearchInput") ? gel("storeSearchInput").value : "");
-        renderForecast();
-        renderWarehouse();
-        var activeTab = (gel("ohTabs").querySelector("button.active") || {}).dataset;
-        renderRows(activeTab && activeTab.t ? activeTab.t : "history");
-        fetchSkuForecast();
-      })
-      .catch(function (err) {
-        setBanner("retail detail: " + err.message);
+      .then(applyPayload)
+      .catch(function () {
+        // No backend reachable (e.g. static Vercel deployment) — fall back to
+        // the pre-exported static snapshot (scripts/export_retail_static.py).
+        return fetch("./data/retail/" + encodeURIComponent(effectiveBarcode) + ".json", { cache: "no-store" })
+          .then(function (response) {
+            if (!response.ok) throw new Error("no static snapshot for this barcode");
+            return response.json();
+          })
+          .then(applyPayload)
+          .catch(function (err) {
+            setBanner("retail detail: " + err.message);
+          });
       });
   }
 
