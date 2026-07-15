@@ -92,7 +92,7 @@ function buildProduct(p, idx, seedOffset) {
     sales: { daily, weekly, monthly },
     totalUnits: total,
     trend,
-    topBrand: BRANDS[Math.floor(rng() * 3)].id, // best-selling brand for this product
+    topBrand: BRANDS[Math.floor(rng() * BRANDS.length)].id, // best-selling brand for this product
   };
 }
 

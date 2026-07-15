@@ -795,14 +795,25 @@ function liveTopCategories(brand) {
   return metrics && metrics.top_categories ? metrics.top_categories : [];
 }
 
-function productBrandWeight(product, brand) {
-  if (!brand) return 1;
+function brandRawDemandScore(product, brand) {
   const shareBase = brand.share / 100;
   const cheapestBoost = product.cheapestBrand === brand.id ? 1.14 : 0.93;
   const heroBoost = product.topBrand === brand.id ? 1.22 : 0.91;
   const affinity = (CATEGORY_AFFINITY[brand.id] && CATEGORY_AFFINITY[brand.id][product.category]) || 1;
   const format = BRAND_FORMAT_FACTOR[brand.id] || 1;
-  return +(shareBase * cheapestBoost * heroBoost * affinity * format * 2.7).toFixed(4);
+  return shareBase * cheapestBoost * heroBoost * affinity * format;
+}
+
+// Normalized so the 4 curated brands' scores sum to 1 for every product —
+// this is what makes each brand's scoped units a real split of the "All
+// chains" total instead of an independent estimate that can overshoot it
+// (previously an unnormalized 2.7x heuristic let the 4 brands' units add
+// up to well over 100% of the unfiltered total).
+function productBrandWeight(product, brand) {
+  if (!brand) return 1;
+  const totalScore = BRANDS.reduce((sum, b) => sum + brandRawDemandScore(product, b), 0);
+  if (!totalScore) return 0;
+  return +(brandRawDemandScore(product, brand) / totalScore).toFixed(4);
 }
 
 function scaleSeries(series, factor) {
