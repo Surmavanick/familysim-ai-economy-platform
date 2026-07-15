@@ -119,6 +119,12 @@ def main():
         )
         written += 1
     conn.close()
+
+    # Small manifest the static (no-backend) dashboard can fetch to show a
+    # real "SKUs tracked" count instead of the 15-item demo product list.
+    manifest_path = OUT_DIR.parent / "retail-manifest.json"
+    manifest_path.write_text(json.dumps({"sku_count": written}, separators=(",", ":")))
+
     print(f"Wrote {written} product JSON files to {OUT_DIR}")
 
 
