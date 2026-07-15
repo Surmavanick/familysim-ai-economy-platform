@@ -1,0 +1,255 @@
+"""
+Implementation guide: How to integrate Life Simulation into existing FamilyMemberAgent
+This transforms agents from homo economicus to synthetic humans
+"""
+
+# Current state step() method:
+# ❌ Only does: update needs → calculate stress → execute routine → impulsive purchase
+# 
+# NEW step() method should do:
+# ✅ Get daily activity → Update emotions from activity → 
+# ✅ Apply identity filters to decisions → 
+# ✅ Check habits → 
+# ✅ Social influence from neighbors → 
+# ✅ THEN economics (shopping, budgeting)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class FamilyMemberAgent_ENHANCED:
+    """
+    Enhanced agent that is a synthetic human, not just economic calculator
+    """
+    
+    def __init__(self, agent_id, model, household, name, age, role, district):
+        # Keep existing attributes
+        self.unique_id = agent_id
+        self.model = model
+        self.household = household
+        self.name = name
+        self.age = age
+        self.role = role
+        self.district = district
+        
+        # ✨ NEW: Life simulation attributes
+        from agents.life_simulation import (
+            EmotionalProfile, Identity, LifeRoutineEngine, 
+            SocialInfluenceEngine, CultureEngine, GEORGIAN_ARCHETYPES
+        )
+        
+        self.emotions = EmotionalProfile()
+        self.archetype = random.choice(list(GEORGIAN_ARCHETYPES.keys()))
+        self.identity = Identity(
+            archetype=self.archetype,
+            risk_aversion=random.uniform(0.3, 0.9),
+            materialism=random.uniform(0.2, 0.8),
+            sociability=random.uniform(0.3, 0.9),
+            tradition_adherence=random.uniform(0.2, 0.9),
+        )
+        
+        self.daily_routine = LifeRoutineEngine(self)
+        self.culture_engine = CultureEngine()
+        
+        self.habits = []  # Will be populated from archetype
+        self.aspirations = []
+        self.last_llm_think = -999  # Cooldown counter
+        
+    def step(self):
+        """
+        NEW enhanced step with life simulation
+        """
+        
+        # 1️⃣ LIFE: What am I doing this hour?
+        current_hour = self.model.schedule.steps % 24
+        activity, enjoyment = self.daily_routine.get_activity_for_hour(
+            current_hour, 
+            self.model.schedule.steps % 7
+        )
+        
+        # 2️⃣ EMOTION: How does this activity affect me?
+        self.daily_routine.update_emotions_from_activity(activity, enjoyment)
+        
+        # 3️⃣ IDENTITY: Filter decisions through my personality
+        decision = self._decide_action_based_on_identity(activity)
+        
+        # 4️⃣ HABIT: Am I acting on habit (irrationally)?
+        if self._should_act_on_habit():
+            self._execute_habit()
+        
+        # 5️⃣ SOCIAL: Am I influenced by neighbors?
+        self._receive_social_influence()
+        
+        # 6️⃣ ECONOMY: Now the economic layer (was step 1 before)
+        if activity == ActivityType.SHOPPING:
+            self._make_shopping_decision()
+        elif activity == ActivityType.WORK:
+            self._work_stress_accumulation()
+        
+        # 7️⃣ COGNITION: Sparse LLM reasoning (only if very stressed + role needs it)
+        if self.emotions.stress > 75 and random.random() < 0.1:
+            self._think_with_llm()
+        
+        # 8️⃣ CLOCK: Update internal timers
+        self.last_llm_think += 1
+    
+    def _decide_action_based_on_identity(self, activity):
+        """
+        IDENTITY FILTER: Same situation, different agents act differently
+        
+        Example: All agents are hungry at 19:00, but...
+        - health_conscious_mother → buys fresh vegetables
+        - traditional_grandfather → insists on georgian food
+        - status_seeker → goes to expensive cafe
+        - practical_parent → buys cheapest option
+        """
+        
+        if activity == ActivityType.EATING:
+            if self.identity.archetype == "health_conscious_mother":
+                return "buy_organic_vegetables"
+            elif self.identity.archetype == "traditional_grandfather":
+                return "buy_georgian_breadandcheese"
+            elif self.identity.archetype == "status_seeking_young_professional":
+                return "go_to_cafe"
+            else:
+                return "buy_affordable_staples"
+        
+        return None
+    
+    def _should_act_on_habit(self) -> bool:
+        """
+        HABITS: People do irrational things regularly
+        Despite 'rational' economic calculation
+        """
+        
+        # 30% chance to act on habit instead of optimize
+        if random.random() < 0.3:
+            return True
+        
+        # Or if emotionally driven
+        if self.emotions.stress > 70 or self.emotions.boredom > 75:
+            return True
+        
+        return False
+    
+    def _execute_habit(self):
+        """
+        Execute a habit (often irrational)
+        """
+        habit_choices = [
+            {"name": "buy_expensive_coffee", "cost": 3, "relief": 0.6},
+            {"name": "impulse_snack", "cost": 2, "relief": 0.4},
+            {"name": "comfort_chocolate", "cost": 5, "relief": 0.7},
+            {"name": "scrolling_social_media", "cost": 0, "relief": 0.3},
+        ]
+        
+        habit = random.choice(habit_choices)
+        
+        if habit["cost"] > 0 and self.household.budget >= habit["cost"]:
+            self.household.budget -= habit["cost"]
+            self.emotions.stress -= habit["relief"] * 20
+            self.emotions.boredom -= habit["relief"] * 15
+    
+    def _receive_social_influence(self):
+        """
+        SOCIAL LAYER: Neighbors' recommendations, trends, aspirations
+        """
+        
+        # Randomly chat with 1-2 neighbors
+        if self.model.schedule.steps % 24 == 19:  # Evening socializing
+            neighbors = self._get_household_neighbors(n=random.randint(1, 2))
+            
+            for neighbor in neighbors:
+                # Share store recommendations
+                if random.random() < 0.3:
+                    best_store = neighbor._get_best_store_for_budget()
+                    self.model.social_engine.spread_store_recommendation(
+                        neighbor, self, best_store,
+                        f"{best_store} has good prices"
+                    )
+                
+                # Share aspirations
+                if random.random() < 0.2:
+                    if neighbor.aspirations:
+                        aspiration = random.choice(neighbor.aspirations)
+                        self.model.social_engine.spread_aspirations(
+                            neighbor, self, aspiration.name
+                        )
+    
+    def _get_household_neighbors(self, n: int) -> list:
+        """Get n neighboring households"""
+        all_households = [h for h in self.model.schedule._agents 
+                         if hasattr(h, 'budget') and h != self.household]
+        return random.sample(all_households, min(n, len(all_households)))
+    
+    def _get_best_store_for_budget(self) -> str:
+        """Which store should I recommend?"""
+        # Not necessarily cheapest! Based on identity
+        if self.identity.materialism > 0.7:
+            return "Carrefour"  # Premium brand
+        elif self.budget < 500:
+            return "Magniti"  # Budget
+        else:
+            return "Spar"  # Middle
+    
+    def _think_with_llm(self):
+        """
+        LLM reasoning: only for high-stress + sparse frequency
+        NOT for every decision (that's not how humans work)
+        """
+        prompt = f"S:{self.emotions.stress:.0f} B:{self.household.budget:.0f} R:{self.role}. Act:"
+        response = self.model.llm.think(prompt)
+        print(f"💭 {self.name}: {response}")
+    
+    def _make_shopping_decision(self):
+        """
+        IDENTITY + HABITS override pure economics here
+        """
+        
+        # Traditional personality forces supra-like spending
+        if self.identity.tradition_adherence > 0.8:
+            self.model.culture_engine.apply_supra_obligation(self)
+        
+        # Materialism drives brand purchases
+        if self.identity.materialism > 0.8 and self.emotions.shame > 60:
+            self._buy_status_items()
+        
+        # Health-conscious buys premium products
+        if "health_conscious" in self.identity.archetype:
+            self._buy_organic_products()
+        
+        # Default: budget-conscious shopping
+        else:
+            self._budget_optimize_shopping()
+    
+    def _buy_organic_products(self):
+        """Health-conscious: willing to pay 30% premium"""
+        pass  # Implementation
+    
+    def _buy_status_items(self):
+        """Status-seeker: buys visible luxury items"""
+        pass  # Implementation
+    
+    def _budget_optimize_shopping(self):
+        """Default economic shopping"""
+        pass  # Implementation
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# KEY INSIGHT
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+"""
+OLD FLOW (homo economicus):
+┌─────────────────────────────────────────────────┐
+│ economy_engine → calculate budget → shopping → economy │ (LOOP)
+└─────────────────────────────────────────────────┘
+
+NEW FLOW (synthetic human):
+┌────────────────────────────────────────────────────────────────┐
+│ daily_activity → emotions → identity_filter → habits           │
+│ → social_influence → culture → THEN economy                    │
+│ → aspirations_update → sleep_recovery → repeat                 │
+└────────────────────────────────────────────────────────────────┘
+
+The economy is now just ONE layer in a complex human life,
+not the ONLY layer
+"""

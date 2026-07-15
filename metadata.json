@@ -1,0 +1,6 @@
+{
+  "name": "FamilySim Engine",
+  "description": "Headless Python-based Family Economy Simulation Kernel",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datasight — Retail Demand Intelligence</title>
+  <!-- Bootstrap removed: grid is custom; fewer 3rd-party deps for Brave Shields. -->
+  <link href="./styles.css?v=27" rel="stylesheet">
+  <link href="./vendor/highcharts-grid-lite.css?v=1" rel="stylesheet">
+</head>
+<body>
+<div class="dm-shell">
+
+  <!-- Sidebar -->
+  <aside class="dm-sidebar">
+    <a class="dm-brand" href="index.html">
+      <img class="dm-logo" src="logo.png" alt="Datasight" />
+    </a>
+    <nav class="dm-nav">
+      <a href="#" class="active" data-view="overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Overview</a>
+      <a href="#" data-view="forecast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v4h-4"/></svg>Demand Forecast</a>
+      <a href="#" data-view="brands"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M6 7l1 13h10l1-13M9 7V5a3 3 0 0 1 6 0v2"/></svg>Brands</a>
+      <a href="#" data-view="stores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Stores</a>
+      <a href="#" data-view="products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>Products</a>
+      <div class="group-label">Intelligence</div>
+      <a href="#" data-view="segments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.2"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/></svg>Family Segments</a>
+      <a href="#" data-view="simulation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Simulation</a>
+      <a href="#" data-view="explain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>Explainability</a>
+      <div class="group-label">Workspace</div>
+      <a href="#" data-view="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.3 1a7 7 0 0 0-1.7-1l-.3-2.6H10.4l-.3 2.6a7 7 0 0 0-1.7 1l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 1.7 1l.3 2.6h3.2l.3-2.6a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.5z"/></svg>Settings</a>
+    </nav>
+    <div class="dm-side-foot">
+      <div class="dm-engine">
+        <div class="row"><span class="k">Retail feed</span><span class="v ok">● Live</span></div>
+        <div class="row"><span class="k">Chains</span><span class="v mono" id="engChains">—</span></div>
+        <div class="row"><span class="k">SKUs tracked</span><span class="v mono" id="eng-skus">—</span></div>
+        <div class="row" id="engScaleRow" style="display:none"><span class="k">Market scale</span><span class="v mono" id="engScale">—</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="dm-main">
+    <header class="dm-topbar">
+      <div>
+        <h1>Retail Overview</h1>
+        <div class="sub">Tbilisi · brand-level demand intelligence</div>
+      </div>
+      <div class="dm-search-wrap">
+        <div class="dm-search">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+          <input id="prodSearch" placeholder="Search product or barcode digits…" autocomplete="off" />
+          <kbd>⌘K</kbd>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <div class="dm-topbar-right">
+        <span class="freshness" id="freshnessBadge"><span class="dot"></span>Simulation · loading…</span>
+        <span class="sim-status idle" id="simStatusBadge">Ready</span>
+        <div class="add-wrap">
+          <button class="icon-btn" id="addWidgetBtn" title="Add widget" style="display:none"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="add-menu" id="addWidgetMenu"></div>
+        </div>
+        <button class="icon-btn" id="editToggle" title="Edit widgets"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+        <button class="btn-cta" id="runSimulationBtn"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>Run Simulation</button>
+      </div>
+    </header>
+
+    <div class="dm-content">
+
+      <!-- Brand switcher -->
+      <div class="brand-bar" id="brandBar"></div>
+
+      <!-- Widget grid -->
+      <div class="widget-grid" id="grid">
+
+        <!-- AI summary -->
+        <div class="widget w-full ai-strip" data-wid="ai">
+          <button class="w-remove" title="Remove">×</button>
+          <span class="spark"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2"/></svg></span>
+          <div style="flex:1">
+            <div class="lead">AI summary · what changed</div>
+            <p id="aiText">Coffee &amp; dairy demand is rising in commuter districts driven by payday timing and overlapping chain promotions. <b>3 products</b> need action today.</p>
+          </div>
+          <a href="#" class="more" id="aiMoreLink">View details →</a>
+        </div>
+
+        <!-- KPIs -->
+        <div class="widget w-sm kpi" data-wid="kpi-units">
+          <button class="w-remove">×</button>
+          <div class="k-label"><span class="k-ic ic blue"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM5 7v14h14V7M9 11h6"/></svg></span>Units sold · cycle</div>
+          <div class="k-value mono" id="kpiUnits">—</div>
+          <span class="k-delta up">▲ 6.2%</span><div class="k-foot" id="kpiUnitsFoot">across chains</div>
+        </div>
+        <div class="widget w-sm kpi" data-wid="kpi-basket">
+          <button class="w-remove">×</button>
+          <div class="k-label"><span class="k-ic ic green"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12zM6 6L5 3H2M9 20a1 1 0 1 0 0-.01M18 20a1 1 0 1 0 0-.01"/></svg></span>Avg basket</div>
+          <div class="k-value mono" id="kpiBasket">—</div>
+          <span class="k-delta down">▼ 1.8%</span><div class="k-foot">standard 8-item basket</div>
+        </div>
+        <div class="widget w-sm kpi" data-wid="kpi-promos">
+          <button class="w-remove">×</button>
+          <div class="k-label"><span class="k-ic ic amber"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12l-8 8-9-9V3h8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>Active promotions</div>
+          <div class="k-value mono" id="kpiPromos">—</div>
+          <span class="k-delta up">▲ 4 new</span><div class="k-foot">live across chains</div>
+        </div>
+        <div class="widget w-sm kpi" data-wid="kpi-price">
+          <button class="w-remove">×</button>
+          <div class="k-label"><span class="k-ic ic coral"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v4h-4"/></svg></span>Price index</div>
+          <div class="k-value mono" id="kpiPrice">—</div>
+          <span class="k-delta flat">━ stable</span><div class="k-foot">100 = market avg</div>
+        </div>
+
+        <!-- Hero: Demand forecast -->
+        <div class="widget w-xl" data-wid="forecast">
+          <button class="w-remove">×</button>
+          <div class="w-head">
+            <h3>Demand Forecast</h3>
+            <div class="dm-tabs" id="heroTabs">
+              <button class="active" data-tab="trend">Trend</button>
+              <button data-tab="brand">By Brand</button>
+              <button data-tab="category">By Category</button>
+            </div>
+          </div>
+          <div id="chart-hero" style="min-height:300px"></div>
+        </div>
+
+        <!-- Recommended actions -->
+        <div class="widget w-md" data-wid="actions">
+          <button class="w-remove">×</button>
+          <div class="w-head"><h3>Recommended Actions</h3><span class="pill info">3 open</span></div>
+          <div id="actionsList">
+            <div class="action"><span class="badge-ic ic green"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span><div><div class="a-title">Restock coffee — Magniti, Spar</div><div class="a-sub">+14% forecast next payday</div></div><a href="#" class="a-cta">Apply</a></div>
+            <div class="action"><span class="badge-ic ic amber"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span><div><div class="a-title">Promo overlap — dairy</div><div class="a-sub">Magniti &amp; Spar both discounting</div></div><a href="#" class="a-cta">Review</a></div>
+            <div class="action"><span class="badge-ic ic coral"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/></svg></span><div><div class="a-title">Margin risk — Spar basket</div><div class="a-sub">Price index 112, demand soft</div></div><a href="#" class="a-cta">Track</a></div>
+          </div>
+        </div>
+
+        <!-- Brand comparison -->
+        <div class="widget w-lg" data-wid="brand-cmp">
+          <button class="w-remove">×</button>
+          <div class="w-head"><h3>Brand Comparison</h3><span class="w-meta">Standard basket · today</span></div>
+          <div id="brandCmp"></div>
+        </div>
+
+        <!-- Brand spotlight -->
+        <div class="widget w-lg" data-wid="brand-spot">
+          <button class="w-remove">×</button>
+          <div class="w-head"><h3>Brand Spotlight</h3><span class="w-meta" id="spotName">Magniti</span></div>
+          <div class="so-kpis" style="grid-template-columns:repeat(2,1fr);margin-bottom:12px">
+            <div class="so-kpi"><div class="l">Market share</div><div class="v mono" id="spotShare">—</div></div>
+            <div class="so-kpi"><div class="l">Avg basket</div><div class="v mono" id="spotBasket">—</div></div>
+          </div>
+          <div id="chart-brand" style="min-height:140px"></div>
+        </div>
+
+        <!-- Price index trend -->
+        <div class="widget w-lg" data-wid="price-trend">
+          <button class="w-remove">×</button>
+          <div class="w-head"><h3>Price Index Trend</h3><span class="w-meta">12-month, by chain tier</span></div>
+          <div id="chart-price" style="min-height:240px"></div>
+        </div>
+
+        <!-- Category demand -->
+        <div class="widget w-lg" data-wid="category">
+          <button class="w-remove">×</button>
+          <div class="w-head"><h3>Demand by Category</h3><span class="w-meta">units · cycle</span></div>
+          <div id="chart-category" style="min-height:240px"></div>
+        </div>
+
+        <!-- Top movers -->
+        <div class="widget w-md" data-wid="movers">
+          <button class="w-remove">×</button>
+          <div class="w-head"><h3>Top Movers</h3><span class="w-meta">YoY trend</span></div>
+          <div id="movers"></div>
+        </div>
+
+        <!-- Family segments -->
+        <div class="widget w-xl" data-wid="segments">
+          <button class="w-remove">×</button>
+          <div class="w-head"><h3>Family Segment Breakdown</h3><span class="w-meta">contribution to demand</span></div>
+          <table class="dm-table">
+            <thead><tr><th>Segment</th><th>Share</th><th class="num">Contribution</th><th class="num">Price sens.</th><th class="num">Promo lift</th></tr></thead>
+            <tbody id="segRows"></tbody>
+          </table>
+        </div>
+
+        <!-- Explainability -->
+        <div class="widget w-full explain" data-wid="explain">
+          <button class="w-remove">×</button>
+          <div class="w-head"><h3>Why this forecast</h3><span class="pill info">Explainability</span></div>
+          <p class="lead" id="explainLead">Demand lift is driven by the <b>1st-of-month payday</b> + the <b>mother segment's</b> price sensitivity dropping after salary events.</p>
+          <div class="reason" id="explainReason">Top signals: payday income (+₾300 avg) · mother promo-lift +22% · coffee/dairy concentration · 2 overlapping chain promos. Confidence 87%.</div>
+          <div class="next" id="explainNext"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Pre-stock coffee &amp; dairy before next payday.</div>
+        </div>
+
+      </div>
+
+      <!-- Dedicated section views (deeper analytics) -->
+      <div id="viewPanels" style="display:none">
+        <section class="view-panel" id="panel-forecast" hidden></section>
+        <section class="view-panel" id="panel-brands" hidden></section>
+        <section class="view-panel" id="panel-stores" hidden></section>
+        <section class="view-panel" id="panel-products" hidden></section>
+        <section class="view-panel" id="panel-segments" hidden></section>
+        <section class="view-panel" id="panel-simulation" hidden></section>
+        <section class="view-panel" id="panel-explain" hidden></section>
+        <section class="view-panel" id="panel-settings" hidden></section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Live simulation overlay (liquid glass) -->
+<div class="sim-overlay" id="simOverlay" aria-hidden="true">
+  <div class="sim-glass">
+    <div class="sim-title"><span class="sim-live-dot"></span>Running live simulation</div>
+    <div class="sim-status-text" id="simStatusText">Initialising simulation…</div>
+    <div class="sim-progress"><i></i></div>
+  </div>
+</div>
+
+<!-- Forward-projection date picker -->
+<div class="sim-overlay" id="simDateOverlay" aria-hidden="true">
+  <div class="sim-glass sim-date-glass">
+    <div class="sim-title" style="justify-content:flex-start">
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Project demand forward
+    </div>
+    <p class="sim-date-copy">Pick how far ahead to project. Datasight re-forecasts brand demand for that horizon.</p>
+    <div class="sim-date-presets" id="simDatePresets">
+      <button type="button" data-days="7">+1 week</button>
+      <button type="button" data-days="14">+2 weeks</button>
+      <button type="button" data-days="30">+1 month</button>
+      <button type="button" data-days="90">+1 quarter</button>
+    </div>
+    <label class="sim-date-label" for="simDateInput">Or choose an exact date</label>
+    <input type="date" id="simDateInput" class="sim-date-input" />
+    <div class="sim-date-actions">
+      <button type="button" class="btn-ghost" id="simDateCancel">Cancel</button>
+      <button type="button" class="btn-cta" id="simDateConfirm">Simulate</button>
+    </div>
+  </div>
+</div>
+
+<!-- Datasight analyst chat -->
+<div class="analyst-chat" id="analystChat">
+  <button class="analyst-launch" id="analystLaunch" type="button" aria-label="Open analyst chat">
+    <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg>
+    <span>Analyst</span>
+  </button>
+  <section class="analyst-panel" id="analystPanel" aria-label="Datasight analyst chat" hidden>
+    <div class="analyst-head">
+      <div>
+        <div class="analyst-title">Datasight Analyst</div>
+        <div class="analyst-sub">Taalas + retail simulation context</div>
+      </div>
+      <button class="analyst-close" id="analystClose" type="button" aria-label="Close analyst chat">×</button>
+    </div>
+    <div class="analyst-messages" id="analystMessages">
+      <div class="chat-msg bot">მკითხე SKU-ზე, ბრენდზე, გაყიდვების კლებაზე ან restock action-ზე. ვუპასუხებ simulation report + retail DB-დან.</div>
+    </div>
+    <div class="analyst-prompts">
+      <button type="button" data-prompt="4860105010108 ამ SKU-ზე კვარტლის projection მომეცი">SKU quarter</button>
+      <button type="button" data-prompt="რომელი top SKU-ები იყიდება ყველაზე მეტად simulation-ში?">Top SKUs</button>
+      <button type="button" data-prompt="Magniti-ზე რა ხდება და რა action მირჩევ?">Brand action</button>
+    </div>
+    <form class="analyst-form" id="analystForm">
+      <input id="analystInput" autocomplete="off" placeholder="Ask in Georgian or English..." />
+      <button type="submit">Send</button>
+    </form>
+  </section>
+</div>
+
+<!-- Libraries served locally (no CDN) so Brave Shields / offline can't blank the page. -->
+<script src="./vendor/apexcharts.min.js?v=5"></script>
+<script src="./vendor/highstock.js?v=1"></script>
+<script src="./vendor/highcharts-more.js?v=1"></script>
+<script src="./vendor/highcharts-heatmap.js?v=1"></script>
+<script src="./vendor/highcharts-map.js?v=1"></script>
+<script src="./vendor/highcharts-tiledwebmap.js?v=1"></script>
+<script src="./vendor/highcharts-grid-lite.js?v=1"></script>
+<script src="./vendor/Sortable.min.js?v=5"></script>
+<script src="./data.js?v=8"></script>
+<script src="./app.js?v=45"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "familysim-demandmind-workspace",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "cd Dashboard/demandmind && python3 serve.py 8600",
+    "demandmind": "cd Dashboard/demandmind && python3 serve.py 8600",
+    "sim": "python3 simulation_run.py",
+    "sim:api": "python3 sim_api.py 3001"
+  },
+  "description": "Synthetic household simulation + Tbilisi retail demand dashboard",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.14.0"
+  }
+}

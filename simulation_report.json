@@ -1,0 +1,4103 @@
+{
+  "simulation_metadata": {
+    "name": "FAMILYSIM - Tbilisi Family Economy Simulation",
+    "duration": "2026-07-04 (30 days)",
+    "start_date": "2026-06-04",
+    "end_date": "2026-07-04",
+    "total_households": 500,
+    "total_population": 2038,
+    "sample_population": 2038,
+    "sample_households": 500,
+    "target_population": 300000,
+    "scaling_factor": 147.203,
+    "simulation_date": "2026-07-04 00:18:12.711610"
+  },
+  "geographic_distribution": {
+    "districts": {
+      "Varketili": 88,
+      "Gldani": 100,
+      "Stadion": 25,
+      "New Batumi": 23,
+      "Nadzaladevi": 57,
+      "Vake": 78,
+      "Saburtalo": 73,
+      "Old Town": 56
+    },
+    "description": "Agents distributed across Tbilisi districts with realistic income/employment variations"
+  },
+  "llm_system": {
+    "status": "✓ Active",
+    "type": "Taalas Cloud API",
+    "agents_with_reasoning": 161
+  },
+  "economic_summary": {
+    "final_avg_budget": 2491.25,
+    "richest_household": 5530.822645195799,
+    "poorest_household": 1250.093135258332,
+    "total_population_wealth": 183360101.35
+  },
+  "agent_wellbeing": {
+    "avg_stress": 6.4,
+    "avg_health": 96.3,
+    "avg_hunger": 58.1,
+    "avg_fun": 74.6,
+    "high_stress_count": 0,
+    "critical_hunger_count": 18548
+  },
+  "events_occurred": {
+    "total_events": 15,
+    "by_type": {
+      "income": 9,
+      "cultural": 1,
+      "expense": 5
+    },
+    "unique_events": [
+      "Government Child Benefit",
+      "Healthcare Emergency",
+      "Car Repair",
+      "Bonus Payment",
+      "New Year Celebration"
+    ]
+  },
+  "social_dynamics": {
+    "households_in_crisis": 0,
+    "households_stable": 25172,
+    "households_comfortable": 48430
+  },
+  "retail_breakdown": {
+    "totals": {
+      "spend": 32129699.71,
+      "units": 10889500,
+      "visits": 186359
+    },
+    "brands": {
+      "carrefour": {
+        "brand_id": "carrefour",
+        "brand_name": "Carrefour",
+        "spend": 14168608.44,
+        "units": 5268548,
+        "visits": 90824,
+        "avg_ticket": 156.0,
+        "store_count": 10,
+        "share_of_spend": 44.1,
+        "top_categories": [
+          {
+            "name": "Bread",
+            "units": 1081943
+          },
+          {
+            "name": "Produce",
+            "units": 1058685
+          },
+          {
+            "name": "Milk",
+            "units": 1056035
+          },
+          {
+            "name": "Dairy",
+            "units": 1033955
+          },
+          {
+            "name": "Sausages",
+            "units": 543327
+          }
+        ],
+        "top_products": [
+          {
+            "name": "Milla არაჟანი 15%-300გ/4760081604653",
+            "units": 11040
+          },
+          {
+            "name": "ყავა ხსნადი ერთჯერადი თხილით /მაკ-კოფე/ 18 გრ",
+            "units": 9127
+          },
+          {
+            "name": "სანტინო არაჟანი 180 გრ/4860051004855",
+            "units": 8243
+          },
+          {
+            "name": "სანტე / მსუბუქი დღე მაწონი ულაქტოზო / 3.2% / 330 გ.",
+            "units": 7360
+          },
+          {
+            "name": "\"Eti\"- მარილიანი ჩხირი წიწაკით 21*45 გრ",
+            "units": 6919
+          },
+          {
+            "name": "BISCOLATA ჩხირები რძნ შოკოლადით-40გრ/8691707140049",
+            "units": 6771
+          },
+          {
+            "name": "მაკკოფე რძიანი ცივი ყავა 240გრ/8887290112024",
+            "units": 6477
+          },
+          {
+            "name": "ხლებცი \"იამუნა\" ხორბლის 80გრ",
+            "units": 6330
+          }
+        ],
+        "district_mix": {
+          "Varketili": 34151,
+          "Vake": 10746,
+          "Saburtalo": 9568,
+          "New Batumi": 5152,
+          "Gldani": 19284,
+          "Old Town": 11923
+        }
+      },
+      "spar": {
+        "brand_id": "spar",
+        "brand_name": "Spar",
+        "spend": 12940847.4,
+        "units": 3567174,
+        "visits": 62267,
+        "avg_ticket": 207.83,
+        "store_count": 3,
+        "share_of_spend": 40.3,
+        "top_categories": [
+          {
+            "name": "Bread",
+            "units": 733513
+          },
+          {
+            "name": "Produce",
+            "units": 716143
+          },
+          {
+            "name": "Milk",
+            "units": 714966
+          },
+          {
+            "name": "Dairy",
+            "units": 703778
+          },
+          {
+            "name": "Yogurt",
+            "units": 378312
+          }
+        ],
+        "top_products": [
+          {
+            "name": "ხლებცი \"იამუნა\" ხორბლის და შვრიის 85გრ",
+            "units": 61678
+          },
+          {
+            "name": "მაწონი / სვანური / 3.2% / 350გრ",
+            "units": 31943
+          },
+          {
+            "name": "მაწონი \"სოფლის ნობათი\" 3,2% 350გრ",
+            "units": 30324
+          },
+          {
+            "name": "კარაქი / ლოიეზ ვოსენ /  ნაღების 82%  / 200გ",
+            "units": 21344
+          },
+          {
+            "name": "შოკოლადის ფილა / ბარ-M /ვაფლი რძიანი შოკოლადით / 35 გრ",
+            "units": 20756
+          },
+          {
+            "name": "\"ბარამბო\"-რძიანი შოკოლადის ფილა 83გრ",
+            "units": 20020
+          },
+          {
+            "name": "წვენი/ჟოზე ვაშლის/0.250 ლ",
+            "units": 13395
+          },
+          {
+            "name": " დონატი ხილის",
+            "units": 12659
+          }
+        ],
+        "district_mix": {
+          "Gldani": 17812,
+          "Old Town": 11482,
+          "Saburtalo": 20756,
+          "Vake": 8832,
+          "New Batumi": 3386
+        }
+      },
+      "goodwill": {
+        "brand_id": "goodwill",
+        "brand_name": "Goodwill",
+        "spend": 1918270.36,
+        "units": 666536,
+        "visits": 11482,
+        "avg_ticket": 167.07,
+        "store_count": 1,
+        "share_of_spend": 6.0,
+        "top_categories": [
+          {
+            "name": "Bread",
+            "units": 136605
+          },
+          {
+            "name": "Produce",
+            "units": 134102
+          },
+          {
+            "name": "Milk",
+            "units": 133366
+          },
+          {
+            "name": "Dairy",
+            "units": 130716
+          },
+          {
+            "name": "Sausages",
+            "units": 67861
+          }
+        ],
+        "top_products": [
+          {
+            "name": "\"Ramco\"- პურის ჩხირი მარილიანი  100გრ",
+            "units": 1914
+          },
+          {
+            "name": "\"Eti\"- მარილიანი ჩხირი წიწაკით 21*45 გრ",
+            "units": 1472
+          },
+          {
+            "name": "სანტისიმო ხაჭო მარწყვის ჯემით 3.5% 150 გ.",
+            "units": 1178
+          },
+          {
+            "name": "\"ბობო\"- ბურბუშელა შედედებული რძის არომატით 70 გრ",
+            "units": 1178
+          },
+          {
+            "name": "ლუდის სოსისი (ნატურალურ გარსაცმში)",
+            "units": 1178
+          },
+          {
+            "name": "ქიშმიში მუქი 1 კატეგორია (წონის)",
+            "units": 1030
+          },
+          {
+            "name": "\"სვეტლაგორ\"- ხაჭოს კვერი \"ოქროს ირისკა\" კარამელის ჭიქურში 26% 45გრ",
+            "units": 1030
+          },
+          {
+            "name": "გარჩეული მზესუმზირა წონის (გუდვილი)",
+            "units": 1030
+          }
+        ],
+        "district_mix": {
+          "Vake": 11482
+        }
+      },
+      "nikora": {
+        "brand_id": "nikora",
+        "brand_name": "Nikora",
+        "spend": 143986.75,
+        "units": 42247,
+        "visits": 736,
+        "avg_ticket": 195.63,
+        "store_count": 4,
+        "share_of_spend": 0.4,
+        "top_categories": [
+          {
+            "name": "Bread",
+            "units": 9863
+          },
+          {
+            "name": "Produce",
+            "units": 9421
+          },
+          {
+            "name": "Milk",
+            "units": 9421
+          },
+          {
+            "name": "Dairy",
+            "units": 9127
+          },
+          {
+            "name": "Yogurt",
+            "units": 3533
+          }
+        ],
+        "top_products": [
+          {
+            "name": "ფრუტელა კანფეტი ხილის ასორტი 42 გრ/4602606011242",
+            "units": 442
+          },
+          {
+            "name": "ხაჭო ალუბლის ჯემით და ნაღებით სანტისიმო /სანტე/ 150გრ",
+            "units": 294
+          },
+          {
+            "name": "ვაფლი დიაბეტური ლიმონის 130გრ",
+            "units": 147
+          },
+          {
+            "name": "\"ოჯახური\"- ხორციანი კერძების საკმაზი 50გრ",
+            "units": 147
+          },
+          {
+            "name": "იოგურტი ნაღებით ალუბლის 290 გრ  სანტისიმო ",
+            "units": 147
+          },
+          {
+            "name": "მაწონი /სანტე/ (3.2%) 400გრ",
+            "units": 147
+          },
+          {
+            "name": "კეტჩუპი /სლობოდა ტომატის დოზატორით/ 220გრ",
+            "units": 147
+          },
+          {
+            "name": "ვაფლი დიაბეტური \"ხბფ\" კაკაოთი 130გრ",
+            "units": 147
+          }
+        ],
+        "district_mix": {
+          "Varketili": 147,
+          "Saburtalo": 147,
+          "Old Town": 147,
+          "Vake": 294
+        }
+      },
+      "2nabiji": {
+        "brand_id": "2nabiji",
+        "brand_name": "2 Nabiji",
+        "spend": 2938092.25,
+        "units": 1336752,
+        "visits": 20903,
+        "avg_ticket": 140.56,
+        "store_count": 7,
+        "share_of_spend": 9.1,
+        "top_categories": [
+          {
+            "name": "Bread",
+            "units": 278803
+          },
+          {
+            "name": "Produce",
+            "units": 271443
+          },
+          {
+            "name": "Milk",
+            "units": 267468
+          },
+          {
+            "name": "Dairy",
+            "units": 262169
+          },
+          {
+            "name": "Yogurt",
+            "units": 138077
+          }
+        ],
+        "top_products": [
+          {
+            "name": "მაწონი \"სოფლის ნობათი\" 3,2% 350გრ",
+            "units": 5594
+          },
+          {
+            "name": "ხაჭო \"სვანური\" 4% 180გრ",
+            "units": 4858
+          },
+          {
+            "name": "მაწონი საბავშვო \"სოფლის ნობათი\" 3,2% 350გრ",
+            "units": 4563
+          },
+          {
+            "name": "მაწონი \"სოფლის ნობათი\" მსუბუქი 1% 350გრ",
+            "units": 4416
+          },
+          {
+            "name": "მაწონი 2.5% 350გრ",
+            "units": 3238
+          },
+          {
+            "name": "შოკოლადის ბატონი \"ბეიბიფოქსი\" რძიანი შიგთავსით 45გრ",
+            "units": 3091
+          },
+          {
+            "name": "კანფეტი დრაჟე  \"სქითლს\" ხილი 38გრ",
+            "units": 2797
+          },
+          {
+            "name": "კანფეტი კარამელი ჯოხზე \"ოზმო ფან\" რძიანი შოკოლადით 23გრ",
+            "units": 2797
+          }
+        ],
+        "district_mix": {
+          "Nadzaladevi": 17076,
+          "Varketili": 1766,
+          "Gldani": 883,
+          "Saburtalo": 442,
+          "New Batumi": 589,
+          "Vake": 147
+        }
+      },
+      "magniti": {
+        "brand_id": "magniti",
+        "brand_name": "Magniti",
+        "spend": 19894.5,
+        "units": 8243,
+        "visits": 147,
+        "avg_ticket": 135.15,
+        "store_count": 1,
+        "share_of_spend": 0.1,
+        "top_categories": [
+          {
+            "name": "Bread",
+            "units": 2061
+          },
+          {
+            "name": "Produce",
+            "units": 2061
+          },
+          {
+            "name": "Milk",
+            "units": 2061
+          },
+          {
+            "name": "Dairy",
+            "units": 1914
+          },
+          {
+            "name": "Sausages",
+            "units": 147
+          }
+        ],
+        "top_products": [
+          {
+            "name": "დაფასოებული კრუასანი შოკოლადის შიგთავსით /365 /24ც/40გრ",
+            "units": 147
+          },
+          {
+            "name": "ცივი ჩაი დრაკონის და ვნების ხილი / FUSE TEA /  0,5ლ",
+            "units": 147
+          },
+          {
+            "name": "ხაჭო /ჩუდო ალუბალი-ბალი 4%/ 100გრ",
+            "units": 147
+          },
+          {
+            "name": "ბატონჩიკი /ბარამბინო რძით საბავშვო /4ც",
+            "units": 147
+          },
+          {
+            "name": "ძეხვი შებოლილი \"პრემიო\" სერველატი ექსტრა 450გრ",
+            "units": 147
+          }
+        ],
+        "district_mix": {
+          "Varketili": 147
+        }
+      }
+    },
+    "stores": [
+      {
+        "store_name": "Spar Saburtalo",
+        "chain_name": "Spar",
+        "brand_id": "spar",
+        "district": "Old Town",
+        "spend": 4908945.04,
+        "units": 1338371,
+        "visits": 23700,
+        "avg_ticket": 207.13
+      },
+      {
+        "store_name": "Spar Stadion",
+        "chain_name": "Spar",
+        "brand_id": "spar",
+        "district": "Saburtalo",
+        "spend": 4180421.98,
+        "units": 1166143,
+        "visits": 20756,
+        "avg_ticket": 201.41
+      },
+      {
+        "store_name": "Spar Nadzaladevi",
+        "chain_name": "Spar",
+        "brand_id": "spar",
+        "district": "Gldani",
+        "spend": 3851480.37,
+        "units": 1062659,
+        "visits": 17812,
+        "avg_ticket": 216.23
+      },
+      {
+        "store_name": "Carrefour ზაქარია ჯორჯაძის ქუჩა",
+        "chain_name": "Carrefour",
+        "brand_id": "carrefour",
+        "district": "Gldani",
+        "spend": 2996521.59,
+        "units": 1150540,
+        "visits": 19284,
+        "avg_ticket": 155.39
+      },
+      {
+        "store_name": "Goodwill 0171",
+        "chain_name": "Goodwill",
+        "brand_id": "goodwill",
+        "district": "Vake",
+        "spend": 1918270.36,
+        "units": 666536,
+        "visits": 11482,
+        "avg_ticket": 167.07
+      },
+      {
+        "store_name": "Carrefour 3 Jumber Lezhava St",
+        "chain_name": "Carrefour",
+        "brand_id": "carrefour",
+        "district": "Varketili",
+        "spend": 1917133.95,
+        "units": 701717,
+        "visits": 11629,
+        "avg_ticket": 164.86
+      },
+      {
+        "store_name": "Carrefour ვაზისუბნის V მ/რ #26 კორპუსი",
+        "chain_name": "Carrefour",
+        "brand_id": "carrefour",
+        "district": "Varketili",
+        "spend": 1914710.99,
+        "units": 730422,
+        "visits": 12365,
+        "avg_ticket": 154.85
+      },
+      {
+        "store_name": "Carrefour 44 Viktor Dolidze St",
+        "chain_name": "Carrefour",
+        "brand_id": "carrefour",
+        "district": "Vake",
+        "spend": 1772425.91,
+        "units": 636801,
+        "visits": 10746,
+        "avg_ticket": 164.94
+      },
+      {
+        "store_name": "Carrefour 30 Teopane Davitaia St",
+        "chain_name": "Carrefour",
+        "brand_id": "carrefour",
+        "district": "Varketili",
+        "spend": 1692351.82,
+        "units": 607949,
+        "visits": 10157,
+        "avg_ticket": 166.62
+      },
+      {
+        "store_name": "2 Nabiji 45",
+        "chain_name": "2 Nabiji",
+        "brand_id": "2nabiji",
+        "district": "Nadzaladevi",
+        "spend": 1464200.2,
+        "units": 672277,
+        "visits": 10451,
+        "avg_ticket": 140.1
+      },
+      {
+        "store_name": "Carrefour 39 Mikheili Tsinamdzghvrishvili St",
+        "chain_name": "Carrefour",
+        "brand_id": "carrefour",
+        "district": "Saburtalo",
+        "spend": 1399435.23,
+        "units": 524779,
+        "visits": 9568,
+        "avg_ticket": 146.26
+      },
+      {
+        "store_name": "2 Nabiji 11 David Nishnianidze St",
+        "chain_name": "2 Nabiji",
+        "brand_id": "2nabiji",
+        "district": "Nadzaladevi",
+        "spend": 990329.74,
+        "units": 444701,
+        "visits": 6624,
+        "avg_ticket": 149.5
+      },
+      {
+        "store_name": "Carrefour 142 Davit Aghmashenebeli Ave",
+        "chain_name": "Carrefour",
+        "brand_id": "carrefour",
+        "district": "Old Town",
+        "spend": 898837.1,
+        "units": 345780,
+        "visits": 6183,
+        "avg_ticket": 145.38
+      },
+      {
+        "store_name": "Carrefour 43 Gogi Dolidze St",
+        "chain_name": "Carrefour",
+        "brand_id": "carrefour",
+        "district": "Old Town",
+        "spend": 831818.45,
+        "units": 311335,
+        "visits": 5741,
+        "avg_ticket": 144.89
+      },
+      {
+        "store_name": "Carrefour 2 Nekerchkhali St",
+        "chain_name": "Carrefour",
+        "brand_id": "carrefour",
+        "district": "New Batumi",
+        "spend": 422107.95,
+        "units": 141609,
+        "visits": 2797,
+        "avg_ticket": 150.92
+      },
+      {
+        "store_name": "Carrefour 22/24 Vaso Godziashvili St",
+        "chain_name": "Carrefour",
+        "brand_id": "carrefour",
+        "district": "New Batumi",
+        "spend": 323265.46,
+        "units": 117615,
+        "visits": 2355,
+        "avg_ticket": 137.25
+      },
+      {
+        "store_name": "2 Nabiji Tbilisi",
+        "chain_name": "2 Nabiji",
+        "brand_id": "2nabiji",
+        "district": "Varketili",
+        "spend": 170919.04,
+        "units": 78459,
+        "visits": 1472,
+        "avg_ticket": 116.11
+      },
+      {
+        "store_name": "2 Nabiji კაკაბეთი",
+        "chain_name": "2 Nabiji",
+        "brand_id": "2nabiji",
+        "district": "Varketili",
+        "spend": 165618.25,
+        "units": 74926,
+        "visits": 1178,
+        "avg_ticket": 140.64
+      },
+      {
+        "store_name": "2 Nabiji Mukhran Machavariani St",
+        "chain_name": "2 Nabiji",
+        "brand_id": "2nabiji",
+        "district": "New Batumi",
+        "spend": 88610.4,
+        "units": 36359,
+        "visits": 589,
+        "avg_ticket": 150.49
+      },
+      {
+        "store_name": "Nikora 2 Ikalto St",
+        "chain_name": "Nikora",
+        "brand_id": "nikora",
+        "district": "Vake",
+        "spend": 61265.95,
+        "units": 17959,
+        "visits": 294,
+        "avg_ticket": 208.1
+      },
+      {
+        "store_name": "2 Nabiji 1 Zaarbriuken Square",
+        "chain_name": "2 Nabiji",
+        "brand_id": "2nabiji",
+        "district": "Saburtalo",
+        "spend": 43600.1,
+        "units": 22375,
+        "visits": 442,
+        "avg_ticket": 98.73
+      },
+      {
+        "store_name": "Nikora 2/4 Terenti Graneli Street",
+        "chain_name": "Nikora",
+        "brand_id": "nikora",
+        "district": "Saburtalo",
+        "spend": 34791.46,
+        "units": 8391,
+        "visits": 147,
+        "avg_ticket": 236.35
+      },
+      {
+        "store_name": "Nikora 1-ლი მიკრო-რაიონი",
+        "chain_name": "Nikora",
+        "brand_id": "nikora",
+        "district": "Varketili",
+        "spend": 28710.5,
+        "units": 8391,
+        "visits": 147,
+        "avg_ticket": 195.04
+      },
+      {
+        "store_name": "Magniti Varketili",
+        "chain_name": "Magniti",
+        "brand_id": "magniti",
+        "district": "Varketili",
+        "spend": 19894.5,
+        "units": 8243,
+        "visits": 147,
+        "avg_ticket": 135.15
+      },
+      {
+        "store_name": "Nikora 16 Kote Marjanishvili St",
+        "chain_name": "Nikora",
+        "brand_id": "nikora",
+        "district": "Old Town",
+        "spend": 19218.84,
+        "units": 7507,
+        "visits": 147,
+        "avg_ticket": 130.56
+      },
+      {
+        "store_name": "2 Nabiji ს. ჩიქოვანის ქუჩა",
+        "chain_name": "2 Nabiji",
+        "brand_id": "2nabiji",
+        "district": "Vake",
+        "spend": 14814.52,
+        "units": 7655,
+        "visits": 147,
+        "avg_ticket": 100.64
+      }
+    ],
+    "sku_breakdown": {
+      "4860008130040": {
+        "units": 43131,
+        "spend": 73321.88,
+        "visits": 3533
+      },
+      "8887290101707": {
+        "units": 108342,
+        "spend": 48753.68,
+        "visits": 9127,
+        "stores": {
+          "carrefour": 108342
+        },
+        "brands": {
+          "carrefour": 108342
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 32237,
+            "spend": 14506.87
+          },
+          {
+            "start": "2026-06-11",
+            "units": 43425,
+            "spend": 19541.22
+          },
+          {
+            "start": "2026-06-18",
+            "units": 8832,
+            "spend": 3974.48
+          },
+          {
+            "start": "2026-06-25",
+            "units": 21786,
+            "spend": 9803.73
+          },
+          {
+            "start": "2026-07-02",
+            "units": 2061,
+            "spend": 927.38
+          }
+        ]
+      },
+      "4860051007115": {
+        "units": 72130,
+        "spend": 220813.54,
+        "visits": 6035,
+        "stores": {
+          "carrefour": 65358,
+          "goodwill": 6771
+        },
+        "brands": {
+          "carrefour": 65358,
+          "goodwill": 6771
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 11776,
+            "spend": 36217.86
+          },
+          {
+            "start": "2026-06-11",
+            "units": 23847,
+            "spend": 72197.25
+          },
+          {
+            "start": "2026-06-18",
+            "units": 12365,
+            "spend": 36971.54
+          },
+          {
+            "start": "2026-06-25",
+            "units": 17223,
+            "spend": 53621.69
+          },
+          {
+            "start": "2026-07-02",
+            "units": 6919,
+            "spend": 21805.2
+          }
+        ]
+      },
+      "8691707140049": {
+        "units": 78606,
+        "spend": 231889.11,
+        "visits": 6771,
+        "stores": {
+          "carrefour": 78606
+        },
+        "brands": {
+          "carrefour": 78606
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 30618,
+            "spend": 90323.85
+          },
+          {
+            "start": "2026-06-11",
+            "units": 23111,
+            "spend": 68177.13
+          },
+          {
+            "start": "2026-06-18",
+            "units": 9421,
+            "spend": 27791.95
+          },
+          {
+            "start": "2026-06-25",
+            "units": 14279,
+            "spend": 42122.18
+          },
+          {
+            "start": "2026-07-02",
+            "units": 1178,
+            "spend": 3473.99
+          }
+        ]
+      },
+      "4605627003265": {
+        "units": 25172,
+        "spend": 47574.58,
+        "visits": 1914
+      },
+      "4860127940018": {
+        "units": 745142,
+        "spend": 737690.87,
+        "visits": 63150,
+        "stores": {
+          "spar": 727625,
+          "2nabiji": 17517
+        },
+        "brands": {
+          "spar": 727625,
+          "2nabiji": 17517
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 172522,
+            "spend": 170796.86
+          },
+          {
+            "start": "2026-06-11",
+            "units": 199019,
+            "spend": 197028.46
+          },
+          {
+            "start": "2026-06-18",
+            "units": 182532,
+            "spend": 180706.58
+          },
+          {
+            "start": "2026-06-25",
+            "units": 166340,
+            "spend": 164676.15
+          },
+          {
+            "start": "2026-07-02",
+            "units": 24730,
+            "spend": 24482.83
+          }
+        ]
+      },
+      "4860123600152": {
+        "units": 317076,
+        "spend": 934419.04,
+        "visits": 27233,
+        "stores": {
+          "spar": 243327,
+          "carrefour": 64033,
+          "goodwill": 9715
+        },
+        "brands": {
+          "spar": 243327,
+          "carrefour": 64033,
+          "goodwill": 9715
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 64033,
+            "spend": 190982.83
+          },
+          {
+            "start": "2026-06-11",
+            "units": 75515,
+            "spend": 221280.18
+          },
+          {
+            "start": "2026-06-18",
+            "units": 86261,
+            "spend": 252877.33
+          },
+          {
+            "start": "2026-06-25",
+            "units": 82875,
+            "spend": 244237.98
+          },
+          {
+            "start": "2026-07-02",
+            "units": 8391,
+            "spend": 25040.73
+          }
+        ]
+      },
+      "4860009622919": {
+        "units": 63003,
+        "spend": 755405.3,
+        "visits": 5447,
+        "stores": {
+          "spar": 63003
+        },
+        "brands": {
+          "spar": 63003
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 16634,
+            "spend": 199441.12
+          },
+          {
+            "start": "2026-06-11",
+            "units": 18253,
+            "spend": 218855.74
+          },
+          {
+            "start": "2026-06-18",
+            "units": 13543,
+            "spend": 162376.84
+          },
+          {
+            "start": "2026-06-25",
+            "units": 12659,
+            "spend": 151787.05
+          },
+          {
+            "start": "2026-07-02",
+            "units": 1914,
+            "spend": 22944.55
+          }
+        ]
+      },
+      "4860122340134": {
+        "units": 150000,
+        "spend": 373500.0,
+        "visits": 13395,
+        "stores": {
+          "spar": 150000
+        },
+        "brands": {
+          "spar": 150000
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 38714,
+            "spend": 96398.92
+          },
+          {
+            "start": "2026-06-11",
+            "units": 38420,
+            "spend": 95665.85
+          },
+          {
+            "start": "2026-06-18",
+            "units": 36654,
+            "spend": 91267.42
+          },
+          {
+            "start": "2026-06-25",
+            "units": 30471,
+            "spend": 75872.91
+          },
+          {
+            "start": "2026-07-02",
+            "units": 5741,
+            "spend": 14294.9
+          }
+        ]
+      },
+      "4860004211828": {
+        "units": 355348,
+        "spend": 835068.69,
+        "visits": 31943,
+        "stores": {
+          "spar": 355348
+        },
+        "brands": {
+          "spar": 355348
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 86850,
+            "spend": 204097.15
+          },
+          {
+            "start": "2026-06-11",
+            "units": 94652,
+            "spend": 222431.31
+          },
+          {
+            "start": "2026-06-18",
+            "units": 84053,
+            "spend": 197524.53
+          },
+          {
+            "start": "2026-06-25",
+            "units": 79048,
+            "spend": 185763.0
+          },
+          {
+            "start": "2026-07-02",
+            "units": 10746,
+            "spend": 25252.7
+          }
+        ]
+      },
+      "4860101501150": {
+        "units": 38420,
+        "spend": 69156.04,
+        "visits": 3533
+      },
+      "7868344444002": {
+        "units": 53140,
+        "spend": 167392.05,
+        "visits": 4563
+      },
+      "4860009621998": {
+        "units": 23405,
+        "spend": 64364.57,
+        "visits": 2061
+      },
+      "4860112180139": {
+        "units": 34004,
+        "spend": 62907.26,
+        "visits": 2797
+      },
+      "4860051006033": {
+        "units": 49460,
+        "spend": 257193.33,
+        "visits": 4269
+      },
+      "4651116100052": {
+        "units": 3533,
+        "spend": 6535.82,
+        "visits": 294
+      },
+      "4860103390400": {
+        "units": 27085,
+        "spend": 100663.4,
+        "visits": 2502
+      },
+      "8410320029971": {
+        "units": 1914,
+        "spend": 16170.26,
+        "visits": 147
+      },
+      "2020734": {
+        "units": 12512,
+        "spend": 14013.74,
+        "visits": 1030
+      },
+      "4860051004855": {
+        "units": 5299,
+        "spend": 22522.08,
+        "visits": 442
+      },
+      "4860001269396": {
+        "units": 89058,
+        "spend": 440836.6,
+        "visits": 7655,
+        "stores": {
+          "spar": 69185,
+          "carrefour": 19872
+        },
+        "brands": {
+          "spar": 69185,
+          "carrefour": 19872
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 17812,
+            "spend": 88167.32
+          },
+          {
+            "start": "2026-06-11",
+            "units": 17812,
+            "spend": 88167.32
+          },
+          {
+            "start": "2026-06-18",
+            "units": 28999,
+            "spend": 143545.14
+          },
+          {
+            "start": "2026-06-25",
+            "units": 17959,
+            "spend": 88895.98
+          },
+          {
+            "start": "2026-07-02",
+            "units": 6477,
+            "spend": 32060.84
+          }
+        ]
+      },
+      "4690388123635": {
+        "units": 147056,
+        "spend": 733809.13,
+        "visits": 12365,
+        "stores": {
+          "spar": 147056
+        },
+        "brands": {
+          "spar": 147056
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 31796,
+            "spend": 158661.43
+          },
+          {
+            "start": "2026-06-11",
+            "units": 36506,
+            "spend": 182166.83
+          },
+          {
+            "start": "2026-06-18",
+            "units": 40775,
+            "spend": 203468.6
+          },
+          {
+            "start": "2026-06-25",
+            "units": 30765,
+            "spend": 153519.63
+          },
+          {
+            "start": "2026-07-02",
+            "units": 7213,
+            "spend": 35992.64
+          }
+        ]
+      },
+      "4607015360028": {
+        "units": 35770,
+        "spend": 80483.32,
+        "visits": 3091
+      },
+      "4860008431314": {
+        "units": 42247,
+        "spend": 145753.19,
+        "visits": 3680
+      },
+      "4860001269426": {
+        "units": 34887,
+        "spend": 102917.08,
+        "visits": 2944
+      },
+      "2104050000008": {
+        "units": 55348,
+        "spend": 104608.44,
+        "visits": 4711
+      },
+      "4860051004237": {
+        "units": 55201,
+        "spend": 160834.15,
+        "visits": 4858
+      },
+      "4860007870091": {
+        "units": 49313,
+        "spend": 103557.41,
+        "visits": 4563
+      },
+      "4690388116125": {
+        "units": 75662,
+        "spend": 136192.35,
+        "visits": 6035,
+        "stores": {
+          "carrefour": 75662
+        },
+        "brands": {
+          "carrefour": 75662
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 20167,
+            "spend": 36300.29
+          },
+          {
+            "start": "2026-06-11",
+            "units": 19431,
+            "spend": 34975.47
+          },
+          {
+            "start": "2026-06-18",
+            "units": 13543,
+            "spend": 24376.84
+          },
+          {
+            "start": "2026-06-25",
+            "units": 15898,
+            "spend": 28616.29
+          },
+          {
+            "start": "2026-07-02",
+            "units": 6624,
+            "spend": 11923.45
+          }
+        ]
+      },
+      "4760081604653": {
+        "units": 122767,
+        "spend": 367074.58,
+        "visits": 11040,
+        "stores": {
+          "carrefour": 122767
+        },
+        "brands": {
+          "carrefour": 122767
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 31796,
+            "spend": 95069.68
+          },
+          {
+            "start": "2026-06-11",
+            "units": 38862,
+            "spend": 116196.27
+          },
+          {
+            "start": "2026-06-18",
+            "units": 24289,
+            "spend": 72622.67
+          },
+          {
+            "start": "2026-06-25",
+            "units": 18695,
+            "spend": 55897.45
+          },
+          {
+            "start": "2026-07-02",
+            "units": 9127,
+            "spend": 27288.52
+          }
+        ]
+      },
+      "4605627008024": {
+        "units": 45339,
+        "spend": 56673.21,
+        "visits": 3827
+      },
+      "4860101500313": {
+        "units": 37242,
+        "spend": 35380.27,
+        "visits": 3238
+      },
+      "4860051005289": {
+        "units": 60795,
+        "spend": 275559.86,
+        "visits": 5447,
+        "stores": {
+          "carrefour": 59323,
+          "goodwill": 1472
+        },
+        "brands": {
+          "carrefour": 59323,
+          "goodwill": 1472
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 16634,
+            "spend": 74686.46
+          },
+          {
+            "start": "2026-06-11",
+            "units": 21639,
+            "spend": 97158.49
+          },
+          {
+            "start": "2026-06-18",
+            "units": 9274,
+            "spend": 44230.13
+          },
+          {
+            "start": "2026-06-25",
+            "units": 13248,
+            "spend": 59484.79
+          }
+        ]
+      },
+      "8887290146142": {
+        "units": 54024,
+        "spend": 161530.42,
+        "visits": 5152
+      },
+      "2110203000009": {
+        "units": 25172,
+        "spend": 54119.23,
+        "visits": 2061
+      },
+      "4860103820129": {
+        "units": 19136,
+        "spend": 102379.78,
+        "visits": 1619
+      },
+      "4607012352583": {
+        "units": 75368,
+        "spend": 101040.24,
+        "visits": 6624,
+        "stores": {
+          "carrefour": 64769,
+          "goodwill": 10599
+        },
+        "brands": {
+          "carrefour": 64769,
+          "goodwill": 10599
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 18989,
+            "spend": 24920.02
+          },
+          {
+            "start": "2026-06-11",
+            "units": 13837,
+            "spend": 18538.76
+          },
+          {
+            "start": "2026-06-18",
+            "units": 13984,
+            "spend": 18516.68
+          },
+          {
+            "start": "2026-06-25",
+            "units": 26497,
+            "spend": 36406.28
+          },
+          {
+            "start": "2026-07-02",
+            "units": 2061,
+            "spend": 2658.49
+          }
+        ]
+      },
+      "3596587000146": {
+        "units": 246565,
+        "spend": 1476925.91,
+        "visits": 21344,
+        "stores": {
+          "spar": 246565
+        },
+        "brands": {
+          "spar": 246565
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 67272,
+            "spend": 402958.29
+          },
+          {
+            "start": "2026-06-11",
+            "units": 63886,
+            "spend": 382678.12
+          },
+          {
+            "start": "2026-06-18",
+            "units": 53435,
+            "spend": 320074.09
+          },
+          {
+            "start": "2026-06-25",
+            "units": 56084,
+            "spend": 335945.53
+          },
+          {
+            "start": "2026-07-02",
+            "units": 5888,
+            "spend": 35269.87
+          }
+        ]
+      },
+      "4860103821621": {
+        "units": 117910,
+        "spend": 1491557.9,
+        "visits": 10451,
+        "stores": {
+          "spar": 117910
+        },
+        "brands": {
+          "spar": 117910
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 24583,
+            "spend": 310973.99
+          },
+          {
+            "start": "2026-06-11",
+            "units": 27380,
+            "spend": 346354.27
+          },
+          {
+            "start": "2026-06-18",
+            "units": 33121,
+            "spend": 418976.94
+          },
+          {
+            "start": "2026-06-25",
+            "units": 25613,
+            "spend": 324008.83
+          },
+          {
+            "start": "2026-07-02",
+            "units": 7213,
+            "spend": 91243.87
+          }
+        ]
+      },
+      "4850005203953": {
+        "units": 140285,
+        "spend": 764551.03,
+        "visits": 11923,
+        "stores": {
+          "spar": 140285
+        },
+        "brands": {
+          "spar": 140285
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 34298,
+            "spend": 186925.91
+          },
+          {
+            "start": "2026-06-11",
+            "units": 37537,
+            "spend": 204575.56
+          },
+          {
+            "start": "2026-06-18",
+            "units": 35034,
+            "spend": 190937.19
+          },
+          {
+            "start": "2026-06-25",
+            "units": 29882,
+            "spend": 162858.19
+          },
+          {
+            "start": "2026-07-02",
+            "units": 3533,
+            "spend": 19254.17
+          }
+        ]
+      },
+      "4860008432274": {
+        "units": 415554,
+        "spend": 1185610.89,
+        "visits": 35918,
+        "stores": {
+          "spar": 348430,
+          "2nabiji": 67125
+        },
+        "brands": {
+          "spar": 348430,
+          "2nabiji": 67125
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 95240,
+            "spend": 268947.5
+          },
+          {
+            "start": "2026-06-11",
+            "units": 106869,
+            "spend": 308287.54
+          },
+          {
+            "start": "2026-06-18",
+            "units": 102306,
+            "spend": 292176.15
+          },
+          {
+            "start": "2026-06-25",
+            "units": 94063,
+            "spend": 269094.7
+          },
+          {
+            "start": "2026-07-02",
+            "units": 17076,
+            "spend": 47105.0
+          }
+        ]
+      },
+      "4860009789681": {
+        "units": 281747,
+        "spend": 1659473.99,
+        "visits": 25466,
+        "stores": {
+          "spar": 225074,
+          "carrefour": 50638,
+          "goodwill": 6035
+        },
+        "brands": {
+          "spar": 225074,
+          "carrefour": 50638,
+          "goodwill": 6035
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 45044,
+            "spend": 269814.52
+          },
+          {
+            "start": "2026-06-11",
+            "units": 82728,
+            "spend": 488149.17
+          },
+          {
+            "start": "2026-06-18",
+            "units": 62709,
+            "spend": 369895.0
+          },
+          {
+            "start": "2026-06-25",
+            "units": 74338,
+            "spend": 433638.37
+          },
+          {
+            "start": "2026-07-02",
+            "units": 16928,
+            "spend": 97976.94
+          }
+        ]
+      },
+      "4860051007696": {
+        "units": 90236,
+        "spend": 154947.5,
+        "visits": 7802,
+        "stores": {
+          "spar": 57262,
+          "goodwill": 8832,
+          "carrefour": 24141
+        },
+        "brands": {
+          "spar": 57262,
+          "goodwill": 8832,
+          "carrefour": 24141
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 23258,
+            "spend": 39167.81
+          },
+          {
+            "start": "2026-06-11",
+            "units": 18400,
+            "spend": 30858.19
+          },
+          {
+            "start": "2026-06-18",
+            "units": 16340,
+            "spend": 28399.9
+          },
+          {
+            "start": "2026-06-25",
+            "units": 29293,
+            "spend": 51752.21
+          },
+          {
+            "start": "2026-07-02",
+            "units": 2944,
+            "spend": 4769.38
+          }
+        ]
+      },
+      "2505168000001": {
+        "units": 143670,
+        "spend": 316074.58,
+        "visits": 12659,
+        "stores": {
+          "spar": 143670
+        },
+        "brands": {
+          "spar": 143670
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 29146,
+            "spend": 64121.69
+          },
+          {
+            "start": "2026-06-11",
+            "units": 51227,
+            "spend": 112698.72
+          },
+          {
+            "start": "2026-06-18",
+            "units": 28263,
+            "spend": 62178.61
+          },
+          {
+            "start": "2026-06-25",
+            "units": 32090,
+            "spend": 70598.63
+          },
+          {
+            "start": "2026-07-02",
+            "units": 2944,
+            "spend": 6476.94
+          }
+        ]
+      },
+      "4690228106118": {
+        "units": 89058,
+        "spend": 156242.89,
+        "visits": 8096,
+        "stores": {
+          "spar": 60500,
+          "carrefour": 28557
+        },
+        "brands": {
+          "spar": 60500,
+          "carrefour": 28557
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 21197,
+            "spend": 38102.06
+          },
+          {
+            "start": "2026-06-11",
+            "units": 23405,
+            "spend": 41240.43
+          },
+          {
+            "start": "2026-06-18",
+            "units": 23994,
+            "spend": 43196.76
+          },
+          {
+            "start": "2026-06-25",
+            "units": 20461,
+            "spend": 33703.63
+          }
+        ]
+      },
+      "4607015360097": {
+        "units": 34151,
+        "spend": 73424.93,
+        "visits": 2797
+      },
+      "4860112180030": {
+        "units": 24141,
+        "spend": 44661.43,
+        "visits": 2061
+      },
+      "4607148390879": {
+        "units": 55643,
+        "spend": 275431.8,
+        "visits": 4711,
+        "stores": {
+          "carrefour": 55643
+        },
+        "brands": {
+          "carrefour": 55643
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 17812,
+            "spend": 88167.32
+          },
+          {
+            "start": "2026-06-11",
+            "units": 10893,
+            "spend": 53920.51
+          },
+          {
+            "start": "2026-06-18",
+            "units": 9127,
+            "spend": 45176.64
+          },
+          {
+            "start": "2026-06-25",
+            "units": 17812,
+            "spend": 88167.32
+          }
+        ]
+      },
+      "4860001003327": {
+        "units": 55348,
+        "spend": 160230.62,
+        "visits": 4416
+      },
+      "4860051007757": {
+        "units": 17664,
+        "spend": 37095.19,
+        "visits": 1619
+      },
+      "4860112180047": {
+        "units": 26938,
+        "spend": 49835.62,
+        "visits": 2208
+      },
+      "4860008431000": {
+        "units": 31943,
+        "spend": 151633.95,
+        "visits": 2650
+      },
+      "4690228008733": {
+        "units": 20314,
+        "spend": 38596.66,
+        "visits": 1766
+      },
+      "4860101500887": {
+        "units": 69185,
+        "spend": 159126.59,
+        "visits": 5594,
+        "stores": {
+          "carrefour": 69185
+        },
+        "brands": {
+          "carrefour": 69185
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 11923,
+            "spend": 27423.95
+          },
+          {
+            "start": "2026-06-11",
+            "units": 25172,
+            "spend": 57895.0
+          },
+          {
+            "start": "2026-06-18",
+            "units": 8096,
+            "spend": 18621.2
+          },
+          {
+            "start": "2026-06-25",
+            "units": 18695,
+            "spend": 42998.04
+          },
+          {
+            "start": "2026-07-02",
+            "units": 5299,
+            "spend": 12188.42
+          }
+        ]
+      },
+      "8694587110515": {
+        "units": 18400,
+        "spend": 4600.1,
+        "visits": 1472
+      },
+      "4823036503385": {
+        "units": 49755,
+        "spend": 343307.16,
+        "visits": 3974
+      },
+      "4600680016108": {
+        "units": 21197,
+        "spend": 41334.64,
+        "visits": 1766
+      },
+      "4860008430195": {
+        "units": 43131,
+        "spend": 170365.55,
+        "visits": 3827
+      },
+      "4869002009260": {
+        "units": 5005,
+        "spend": 9259.08,
+        "visits": 442
+      },
+      "8690533014081": {
+        "units": 92591,
+        "spend": 126719.82,
+        "visits": 8391,
+        "stores": {
+          "goodwill": 17223,
+          "carrefour": 75368
+        },
+        "brands": {
+          "goodwill": 17223,
+          "carrefour": 75368
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 24141,
+            "spend": 33002.94
+          },
+          {
+            "start": "2026-06-11",
+            "units": 28410,
+            "spend": 38486.26
+          },
+          {
+            "start": "2026-06-18",
+            "units": 23994,
+            "spend": 33098.63
+          },
+          {
+            "start": "2026-06-25",
+            "units": 12218,
+            "spend": 16700.2
+          },
+          {
+            "start": "2026-07-02",
+            "units": 3827,
+            "spend": 5431.8
+          }
+        ]
+      },
+      "2005536": {
+        "units": 8391,
+        "spend": 15103.04,
+        "visits": 883
+      },
+      "4860009782507": {
+        "units": 8685,
+        "spend": 33378.31,
+        "visits": 736
+      },
+      "4820112654085": {
+        "units": 82139,
+        "spend": 629926.4,
+        "visits": 7360,
+        "stores": {
+          "spar": 70363,
+          "carrefour": 11776
+        },
+        "brands": {
+          "spar": 70363,
+          "carrefour": 11776
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 17517,
+            "spend": 139261.53
+          },
+          {
+            "start": "2026-06-11",
+            "units": 20314,
+            "spend": 154860.65
+          },
+          {
+            "start": "2026-06-18",
+            "units": 25319,
+            "spend": 194649.66
+          },
+          {
+            "start": "2026-06-25",
+            "units": 15751,
+            "spend": 115408.73
+          },
+          {
+            "start": "2026-07-02",
+            "units": 3238,
+            "spend": 25745.83
+          }
+        ]
+      },
+      "4607015360011": {
+        "units": 53140,
+        "spend": 82367.52,
+        "visits": 4269
+      },
+      "5201004030092": {
+        "units": 32237,
+        "spend": 101548.09,
+        "visits": 2797
+      },
+      "4820182061943": {
+        "units": 69774,
+        "spend": 136059.86,
+        "visits": 6183,
+        "stores": {
+          "carrefour": 69774
+        },
+        "brands": {
+          "carrefour": 69774
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 13395,
+            "spend": 26121.2
+          },
+          {
+            "start": "2026-06-11",
+            "units": 28410,
+            "spend": 55399.9
+          },
+          {
+            "start": "2026-06-18",
+            "units": 6624,
+            "spend": 12917.08
+          },
+          {
+            "start": "2026-06-25",
+            "units": 20167,
+            "spend": 39325.32
+          },
+          {
+            "start": "2026-07-02",
+            "units": 1178,
+            "spend": 2296.37
+          }
+        ]
+      },
+      "4860051007429": {
+        "units": 80815,
+        "spend": 266687.93,
+        "visits": 7360,
+        "stores": {
+          "carrefour": 80815
+        },
+        "brands": {
+          "carrefour": 80815
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 21344,
+            "spend": 70436.7
+          },
+          {
+            "start": "2026-06-11",
+            "units": 23994,
+            "spend": 79180.57
+          },
+          {
+            "start": "2026-06-18",
+            "units": 14279,
+            "spend": 47119.73
+          },
+          {
+            "start": "2026-06-25",
+            "units": 18106,
+            "spend": 59749.75
+          },
+          {
+            "start": "2026-07-02",
+            "units": 3091,
+            "spend": 10201.18
+          }
+        ]
+      },
+      "4820002303727": {
+        "units": 1766,
+        "spend": 6977.43,
+        "visits": 147
+      },
+      "4602606011242": {
+        "units": 71541,
+        "spend": 139784.1,
+        "visits": 6035,
+        "stores": {
+          "nikora": 5594,
+          "carrefour": 65947
+        },
+        "brands": {
+          "nikora": 5594,
+          "carrefour": 65947
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 16045,
+            "spend": 31472.03
+          },
+          {
+            "start": "2026-06-11",
+            "units": 21933,
+            "spend": 42769.87
+          },
+          {
+            "start": "2026-06-18",
+            "units": 18695,
+            "spend": 36454.86
+          },
+          {
+            "start": "2026-06-25",
+            "units": 13395,
+            "spend": 26216.88
+          },
+          {
+            "start": "2026-07-02",
+            "units": 1472,
+            "spend": 2870.46
+          }
+        ]
+      },
+      "4860051005050": {
+        "units": 3533,
+        "spend": 15897.94,
+        "visits": 294
+      },
+      "4860051005555": {
+        "units": 1619,
+        "spend": 5748.28,
+        "visits": 147
+      },
+      "8595139794392": {
+        "units": 18106,
+        "spend": 131268.4,
+        "visits": 1766
+      },
+      "4860101501143": {
+        "units": 47252,
+        "spend": 59624.63,
+        "visits": 3974
+      },
+      "4860111650879": {
+        "units": 42836,
+        "spend": 141359.18,
+        "visits": 3680
+      },
+      "4860110180162": {
+        "units": 56526,
+        "spend": 137608.44,
+        "visits": 5005,
+        "stores": {
+          "carrefour": 40922,
+          "goodwill": 13690,
+          "europroduct": 1914
+        },
+        "brands": {
+          "carrefour": 40922,
+          "goodwill": 13690,
+          "Europroduct": 1914
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 15309,
+            "spend": 37507.36
+          },
+          {
+            "start": "2026-06-11",
+            "units": 20167,
+            "spend": 49408.73
+          },
+          {
+            "start": "2026-06-18",
+            "units": 7213,
+            "spend": 17671.74
+          },
+          {
+            "start": "2026-06-25",
+            "units": 10157,
+            "spend": 24004.42
+          },
+          {
+            "start": "2026-07-02",
+            "units": 3680,
+            "spend": 9016.19
+          }
+        ]
+      },
+      "4860103820464": {
+        "units": 24436,
+        "spend": 157610.4,
+        "visits": 2208
+      },
+      "4607012351692": {
+        "units": 41364,
+        "spend": 53359.67,
+        "visits": 3533
+      },
+      "4860006060387": {
+        "units": 7655,
+        "spend": 9803.73,
+        "visits": 589
+      },
+      "2003652": {
+        "units": 4563,
+        "spend": 5247.79,
+        "visits": 442
+      },
+      "4860051006118": {
+        "units": 57556,
+        "spend": 198466.63,
+        "visits": 4858,
+        "stores": {
+          "goodwill": 11923,
+          "carrefour": 45633
+        },
+        "brands": {
+          "goodwill": 11923,
+          "carrefour": 45633
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 12659,
+            "spend": 43204.12
+          },
+          {
+            "start": "2026-06-11",
+            "units": 16634,
+            "spend": 57850.83
+          },
+          {
+            "start": "2026-06-18",
+            "units": 9568,
+            "spend": 32973.5
+          },
+          {
+            "start": "2026-06-25",
+            "units": 16634,
+            "spend": 57225.22
+          },
+          {
+            "start": "2026-07-02",
+            "units": 2061,
+            "spend": 7212.95
+          }
+        ]
+      },
+      "8692971020624": {
+        "units": 80520,
+        "spend": 196866.54,
+        "visits": 6624,
+        "stores": {
+          "goodwill": 6330,
+          "carrefour": 64328,
+          "2nabiji": 9863
+        },
+        "brands": {
+          "goodwill": 6330,
+          "carrefour": 64328,
+          "2nabiji": 9863
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 16340,
+            "spend": 41952.89
+          },
+          {
+            "start": "2026-06-11",
+            "units": 33562,
+            "spend": 79804.71
+          },
+          {
+            "start": "2026-06-18",
+            "units": 16340,
+            "spend": 39412.17
+          },
+          {
+            "start": "2026-06-25",
+            "units": 10746,
+            "spend": 26864.57
+          },
+          {
+            "start": "2026-07-02",
+            "units": 3533,
+            "spend": 8832.19
+          }
+        ]
+      },
+      "5411188091622": {
+        "units": 3238,
+        "spend": 9553.48,
+        "visits": 294
+      },
+      "4860006060134": {
+        "units": 8538,
+        "spend": 12379.78,
+        "visits": 589
+      },
+      "4860051005012": {
+        "units": 12218,
+        "spend": 53147.69,
+        "visits": 1178
+      },
+      "4690228008757": {
+        "units": 20756,
+        "spend": 40760.55,
+        "visits": 1766
+      },
+      "4860101500702": {
+        "units": 60206,
+        "spend": 63216.39,
+        "visits": 4858,
+        "stores": {
+          "carrefour": 60206
+        },
+        "brands": {
+          "carrefour": 60206
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 18253,
+            "spend": 19165.85
+          },
+          {
+            "start": "2026-06-11",
+            "units": 22816,
+            "spend": 23957.31
+          },
+          {
+            "start": "2026-06-18",
+            "units": 7802,
+            "spend": 8191.85
+          },
+          {
+            "start": "2026-06-25",
+            "units": 11335,
+            "spend": 11901.37
+          }
+        ]
+      },
+      "4823036500179": {
+        "units": 32090,
+        "spend": 221422.96,
+        "visits": 3091
+      },
+      "4860103821935": {
+        "units": 43131,
+        "spend": 120765.46,
+        "visits": 3680
+      },
+      "4860112180054": {
+        "units": 40628,
+        "spend": 75161.92,
+        "visits": 3680
+      },
+      "4860101500399": {
+        "units": 35476,
+        "spend": 60309.13,
+        "visits": 2944
+      },
+      "4860001000449": {
+        "units": 59470,
+        "spend": 89205.1,
+        "visits": 5005,
+        "stores": {
+          "carrefour": 46516,
+          "2nabiji": 12954
+        },
+        "brands": {
+          "carrefour": 46516,
+          "2nabiji": 12954
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 13395,
+            "spend": 20093.23
+          },
+          {
+            "start": "2026-06-11",
+            "units": 18842,
+            "spend": 28263.0
+          },
+          {
+            "start": "2026-06-18",
+            "units": 9127,
+            "spend": 13689.89
+          },
+          {
+            "start": "2026-06-25",
+            "units": 16487,
+            "spend": 24730.13
+          },
+          {
+            "start": "2026-07-02",
+            "units": 1619,
+            "spend": 2428.85
+          }
+        ]
+      },
+      "4860051004022": {
+        "units": 68449,
+        "spend": 339619.73,
+        "visits": 5741,
+        "stores": {
+          "carrefour": 64475,
+          "goodwill": 3974
+        },
+        "brands": {
+          "carrefour": 64475,
+          "goodwill": 3974
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 10599,
+            "spend": 52463.2
+          },
+          {
+            "start": "2026-06-11",
+            "units": 21933,
+            "spend": 108981.84
+          },
+          {
+            "start": "2026-06-18",
+            "units": 6624,
+            "spend": 32789.5
+          },
+          {
+            "start": "2026-06-25",
+            "units": 27233,
+            "spend": 135184.0
+          },
+          {
+            "start": "2026-07-02",
+            "units": 2061,
+            "spend": 10201.18
+          }
+        ]
+      },
+      "4860051007740": {
+        "units": 18400,
+        "spend": 43240.92,
+        "visits": 1619
+      },
+      "4860101500306": {
+        "units": 32237,
+        "spend": 62863.1,
+        "visits": 2944
+      },
+      "4860103820853": {
+        "units": 58145,
+        "spend": 294759.57,
+        "visits": 5005,
+        "stores": {
+          "carrefour": 35623,
+          "2nabiji": 22522
+        },
+        "brands": {
+          "carrefour": 35623,
+          "2nabiji": 22522
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 10304,
+            "spend": 52190.87
+          },
+          {
+            "start": "2026-06-11",
+            "units": 14132,
+            "spend": 71621.69
+          },
+          {
+            "start": "2026-06-18",
+            "units": 15162,
+            "spend": 76906.28
+          },
+          {
+            "start": "2026-06-25",
+            "units": 18548,
+            "spend": 94040.73
+          }
+        ]
+      },
+      "2150530000006": {
+        "units": 39303,
+        "spend": 115944.55,
+        "visits": 3386
+      },
+      "4600949110035": {
+        "units": 35182,
+        "spend": 75203.14,
+        "visits": 2944
+      },
+      "4860105010023": {
+        "units": 37390,
+        "spend": 87865.55,
+        "visits": 3386
+      },
+      "4860051005746": {
+        "units": 48871,
+        "spend": 160787.05,
+        "visits": 4563
+      },
+      "4860101500351": {
+        "units": 31501,
+        "spend": 70878.31,
+        "visits": 2650
+      },
+      "4605627008048": {
+        "units": 17664,
+        "spend": 22080.47,
+        "visits": 1619
+      },
+      "4860001000852": {
+        "units": 50049,
+        "spend": 111373.9,
+        "visits": 3827
+      },
+      "4860006060042": {
+        "units": 12218,
+        "spend": 17105.0,
+        "visits": 1030
+      },
+      "7622201718336": {
+        "units": 34593,
+        "spend": 37706.08,
+        "visits": 2650
+      },
+      "4860004211620": {
+        "units": 42100,
+        "spend": 61045.14,
+        "visits": 3238
+      },
+      "4605142020464": {
+        "units": 19136,
+        "spend": 33488.71,
+        "visits": 1178
+      },
+      "4860004211842": {
+        "units": 55496,
+        "spend": 154832.68,
+        "visits": 4858
+      },
+      "2104257000009": {
+        "units": 34151,
+        "spend": 50885.18,
+        "visits": 3091
+      },
+      "4760109702675": {
+        "units": 5005,
+        "spend": 7957.8,
+        "visits": 589
+      },
+      "4607096002961": {
+        "units": 16781,
+        "spend": 30038.27,
+        "visits": 1325
+      },
+      "4600949140018": {
+        "units": 31501,
+        "spend": 47252.21,
+        "visits": 2208
+      },
+      "4869002020678": {
+        "units": 108489,
+        "spend": 146677.63,
+        "visits": 8685,
+        "stores": {
+          "carrefour": 77429,
+          "goodwill": 7949,
+          "2nabiji": 23111
+        },
+        "brands": {
+          "carrefour": 77429,
+          "goodwill": 7949,
+          "2nabiji": 23111
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 25319,
+            "spend": 32717.37
+          },
+          {
+            "start": "2026-06-11",
+            "units": 28263,
+            "spend": 38882.24
+          },
+          {
+            "start": "2026-06-18",
+            "units": 27380,
+            "spend": 36044.16
+          },
+          {
+            "start": "2026-06-25",
+            "units": 21786,
+            "spend": 30709.52
+          },
+          {
+            "start": "2026-07-02",
+            "units": 5741,
+            "spend": 8324.34
+          }
+        ]
+      },
+      "4002334115326": {
+        "units": 50638,
+        "spend": 177961.24,
+        "visits": 4711
+      },
+      "7622300274801": {
+        "units": 47694,
+        "spend": 64710.5,
+        "visits": 4269
+      },
+      "4860051003278": {
+        "units": 99804,
+        "spend": 424165.85,
+        "visits": 8243,
+        "stores": {
+          "carrefour": 99804
+        },
+        "brands": {
+          "carrefour": 99804
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 22375,
+            "spend": 95093.23
+          },
+          {
+            "start": "2026-06-11",
+            "units": 25172,
+            "spend": 106979.88
+          },
+          {
+            "start": "2026-06-18",
+            "units": 22080,
+            "spend": 93842.0
+          },
+          {
+            "start": "2026-06-25",
+            "units": 21492,
+            "spend": 91339.55
+          },
+          {
+            "start": "2026-07-02",
+            "units": 8685,
+            "spend": 36911.19
+          }
+        ]
+      },
+      "4606779450709": {
+        "units": 22228,
+        "spend": 36675.66,
+        "visits": 1914
+      },
+      "4860051007719": {
+        "units": 95829,
+        "spend": 161574.58,
+        "visits": 8391,
+        "stores": {
+          "spar": 61678,
+          "carrefour": 34151
+        },
+        "brands": {
+          "spar": 61678,
+          "carrefour": 34151
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 20756,
+            "spend": 36434.25
+          },
+          {
+            "start": "2026-06-11",
+            "units": 32090,
+            "spend": 56726.2
+          },
+          {
+            "start": "2026-06-18",
+            "units": 16340,
+            "spend": 26639.35
+          },
+          {
+            "start": "2026-06-25",
+            "units": 25319,
+            "spend": 39933.27
+          },
+          {
+            "start": "2026-07-02",
+            "units": 1325,
+            "spend": 1841.51
+          }
+        ]
+      },
+      "4860101500368": {
+        "units": 59028,
+        "spend": 88542.69,
+        "visits": 4711,
+        "stores": {
+          "carrefour": 59028
+        },
+        "brands": {
+          "carrefour": 59028
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 18695,
+            "spend": 28042.2
+          },
+          {
+            "start": "2026-06-11",
+            "units": 19431,
+            "spend": 29146.22
+          },
+          {
+            "start": "2026-06-18",
+            "units": 5005,
+            "spend": 7507.36
+          },
+          {
+            "start": "2026-06-25",
+            "units": 14279,
+            "spend": 21418.06
+          },
+          {
+            "start": "2026-07-02",
+            "units": 1619,
+            "spend": 2428.85
+          }
+        ]
+      },
+      "4860001120444": {
+        "units": 49460,
+        "spend": 136015.7,
+        "visits": 3974
+      },
+      "5000159376655": {
+        "units": 39450,
+        "spend": 87850.83,
+        "visits": 3091
+      },
+      "4690329014077": {
+        "units": 38126,
+        "spend": 68244.85,
+        "visits": 3091
+      },
+      "4002334115333": {
+        "units": 63445,
+        "spend": 222460.75,
+        "visits": 5299,
+        "stores": {
+          "spar": 55348,
+          "goodwill": 4122,
+          "carrefour": 3974
+        },
+        "brands": {
+          "spar": 55348,
+          "goodwill": 4122,
+          "carrefour": 3974
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 9863,
+            "spend": 34600.1
+          },
+          {
+            "start": "2026-06-11",
+            "units": 15604,
+            "spend": 54612.37
+          },
+          {
+            "start": "2026-06-18",
+            "units": 10599,
+            "spend": 37242.39
+          },
+          {
+            "start": "2026-06-25",
+            "units": 25319,
+            "spend": 88689.89
+          },
+          {
+            "start": "2026-07-02",
+            "units": 2061,
+            "spend": 7316.0
+          }
+        ]
+      },
+      "4860103821737": {
+        "units": 29735,
+        "spend": 203684.99,
+        "visits": 2502
+      },
+      "4860001881864": {
+        "units": 29293,
+        "spend": 26364.08,
+        "visits": 2650
+      },
+      "4760081602055": {
+        "units": 29882,
+        "spend": 104289.01,
+        "visits": 2944
+      },
+      "4860103820563": {
+        "units": 21492,
+        "spend": 149367.03,
+        "visits": 1619
+      },
+      "4869002020654": {
+        "units": 32679,
+        "spend": 70024.53,
+        "visits": 3091
+      },
+      "4760081601171": {
+        "units": 21933,
+        "spend": 30487.24,
+        "visits": 1766
+      },
+      "4860112772334": {
+        "units": 17517,
+        "spend": 25399.9,
+        "visits": 1178
+      },
+      "4860001003419": {
+        "units": 42689,
+        "spend": 149646.71,
+        "visits": 3680
+      },
+      "4860103821430": {
+        "units": 54024,
+        "spend": 256093.72,
+        "visits": 5005
+      },
+      "4860107700557": {
+        "units": 22669,
+        "spend": 40578.02,
+        "visits": 1619
+      },
+      "4760081602901": {
+        "units": 33121,
+        "spend": 43056.92,
+        "visits": 2650
+      },
+      "5941194001341": {
+        "units": 39745,
+        "spend": 49681.06,
+        "visits": 3680
+      },
+      "4607096572600": {
+        "units": 25466,
+        "spend": 59845.44,
+        "visits": 2061
+      },
+      "9002956052455": {
+        "units": 15898,
+        "spend": 111329.74,
+        "visits": 1325
+      },
+      "4860051003889": {
+        "units": 60353,
+        "spend": 315095.68,
+        "visits": 5594,
+        "stores": {
+          "carrefour": 59028,
+          "goodwill": 1325
+        },
+        "brands": {
+          "carrefour": 59028,
+          "goodwill": 1325
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 9127,
+            "spend": 47458.29
+          },
+          {
+            "start": "2026-06-11",
+            "units": 16192,
+            "spend": 84200.2
+          },
+          {
+            "start": "2026-06-18",
+            "units": 18400,
+            "spend": 96940.63
+          },
+          {
+            "start": "2026-06-25",
+            "units": 13837,
+            "spend": 71952.89
+          },
+          {
+            "start": "2026-07-02",
+            "units": 2797,
+            "spend": 14543.67
+          }
+        ]
+      },
+      "4860051007702": {
+        "units": 93621,
+        "spend": 156553.48,
+        "visits": 8391,
+        "stores": {
+          "spar": 55937,
+          "carrefour": 35770,
+          "goodwill": 1914
+        },
+        "brands": {
+          "spar": 55937,
+          "carrefour": 35770,
+          "goodwill": 1914
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 23111,
+            "spend": 40385.18
+          },
+          {
+            "start": "2026-06-11",
+            "units": 23553,
+            "spend": 40130.52
+          },
+          {
+            "start": "2026-06-18",
+            "units": 17812,
+            "spend": 29227.18
+          },
+          {
+            "start": "2026-06-25",
+            "units": 25172,
+            "spend": 40338.08
+          },
+          {
+            "start": "2026-07-02",
+            "units": 3974,
+            "spend": 6472.52
+          }
+        ]
+      },
+      "8594001692811": {
+        "units": 14573,
+        "spend": 67764.97,
+        "visits": 1472
+      },
+      "4860004390080": {
+        "units": 42689,
+        "spend": 94011.29,
+        "visits": 3680
+      },
+      "4860103820082": {
+        "units": 15309,
+        "spend": 81903.83,
+        "visits": 1472
+      },
+      "4860001881123": {
+        "units": 29146,
+        "spend": 52463.2,
+        "visits": 2502
+      },
+      "4860051007795": {
+        "units": 45191,
+        "spend": 49258.59,
+        "visits": 4269
+      },
+      "9002956050543": {
+        "units": 23700,
+        "spend": 150949.46,
+        "visits": 2061
+      },
+      "4860007492200": {
+        "units": 36359,
+        "spend": 70900.39,
+        "visits": 2944
+      },
+      "4606779450501": {
+        "units": 25466,
+        "spend": 42019.14,
+        "visits": 2208
+      },
+      "4860006060028": {
+        "units": 6183,
+        "spend": 9627.09,
+        "visits": 589
+      },
+      "4823077633171": {
+        "units": 10451,
+        "spend": 31249.75,
+        "visits": 883
+      },
+      "4860104880276": {
+        "units": 10157,
+        "spend": 37479.39,
+        "visits": 736
+      },
+      "46254948": {
+        "units": 18548,
+        "spend": 34313.05,
+        "visits": 1619
+      },
+      "4860008432281": {
+        "units": 57115,
+        "spend": 113658.49,
+        "visits": 4416,
+        "stores": {
+          "2nabiji": 57115
+        },
+        "brands": {
+          "2nabiji": 57115
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 9715,
+            "spend": 19333.66
+          },
+          {
+            "start": "2026-06-11",
+            "units": 8391,
+            "spend": 16697.25
+          },
+          {
+            "start": "2026-06-18",
+            "units": 13690,
+            "spend": 27242.89
+          },
+          {
+            "start": "2026-06-25",
+            "units": 22669,
+            "spend": 45111.87
+          },
+          {
+            "start": "2026-07-02",
+            "units": 2650,
+            "spend": 5272.82
+          }
+        ]
+      },
+      "4860103820310": {
+        "units": 15162,
+        "spend": 97747.3,
+        "visits": 1178
+      },
+      "2104047000004": {
+        "units": 46075,
+        "spend": 31330.72,
+        "visits": 4122
+      },
+      "4605627007126": {
+        "units": 11040,
+        "spend": 18216.39,
+        "visits": 1030
+      },
+      "4860006050012": {
+        "units": 7360,
+        "spend": 11776.25,
+        "visits": 589
+      },
+      "2001185": {
+        "units": 7802,
+        "spend": 7801.77,
+        "visits": 736
+      },
+      "5941194001587": {
+        "units": 7949,
+        "spend": 21064.77,
+        "visits": 589
+      },
+      "4870206415542": {
+        "units": 5299,
+        "spend": 15632.97,
+        "visits": 442
+      },
+      "4860001003310": {
+        "units": 65947,
+        "spend": 184657.51,
+        "visits": 5152,
+        "stores": {
+          "carrefour": 32826,
+          "2nabiji": 21492,
+          "goodwill": 11629
+        },
+        "brands": {
+          "carrefour": 32826,
+          "2nabiji": 21492,
+          "goodwill": 11629
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 23847,
+            "spend": 68113.84
+          },
+          {
+            "start": "2026-06-11",
+            "units": 13690,
+            "spend": 38827.77
+          },
+          {
+            "start": "2026-06-18",
+            "units": 17076,
+            "spend": 47122.67
+          },
+          {
+            "start": "2026-06-25",
+            "units": 11335,
+            "spend": 30593.23
+          }
+        ]
+      },
+      "4820182069086": {
+        "units": 33415,
+        "spend": 65159.47,
+        "visits": 2944
+      },
+      "4860051006408": {
+        "units": 24877,
+        "spend": 57733.07,
+        "visits": 2061
+      },
+      "8033629400717": {
+        "units": 47252,
+        "spend": 112374.88,
+        "visits": 3974
+      },
+      "4860101500016": {
+        "units": 33857,
+        "spend": 50034.35,
+        "visits": 2797
+      },
+      "4011800614515": {
+        "units": 135132,
+        "spend": 593231.6,
+        "visits": 11923,
+        "stores": {
+          "spar": 135132
+        },
+        "brands": {
+          "spar": 135132
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 29735,
+            "spend": 130536.8
+          },
+          {
+            "start": "2026-06-11",
+            "units": 30029,
+            "spend": 131829.24
+          },
+          {
+            "start": "2026-06-18",
+            "units": 33121,
+            "spend": 145399.9
+          },
+          {
+            "start": "2026-06-25",
+            "units": 38862,
+            "spend": 170602.55
+          },
+          {
+            "start": "2026-07-02",
+            "units": 3386,
+            "spend": 14863.1
+          }
+        ]
+      },
+      "4860006060981": {
+        "units": 5888,
+        "spend": 15014.72,
+        "visits": 589
+      },
+      "4860103822031": {
+        "units": 8538,
+        "spend": 55922.47,
+        "visits": 589
+      },
+      "2102275000001": {
+        "units": 10893,
+        "spend": 19607.46,
+        "visits": 1030
+      },
+      "4860051003872": {
+        "units": 37831,
+        "spend": 103420.51,
+        "visits": 3238
+      },
+      "8887290112024": {
+        "units": 75368,
+        "spend": 225350.34,
+        "visits": 6477,
+        "stores": {
+          "carrefour": 75368
+        },
+        "brands": {
+          "carrefour": 75368
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 14132,
+            "spend": 42253.19
+          },
+          {
+            "start": "2026-06-11",
+            "units": 21492,
+            "spend": 64260.06
+          },
+          {
+            "start": "2026-06-18",
+            "units": 19725,
+            "spend": 58978.41
+          },
+          {
+            "start": "2026-06-25",
+            "units": 13248,
+            "spend": 39612.37
+          },
+          {
+            "start": "2026-07-02",
+            "units": 6771,
+            "spend": 20246.32
+          }
+        ]
+      },
+      "4860008130057": {
+        "units": 34446,
+        "spend": 51668.3,
+        "visits": 2650
+      },
+      "4600375041897": {
+        "units": 39892,
+        "spend": 109511.78,
+        "visits": 3533
+      },
+      "4860001003525": {
+        "units": 32090,
+        "spend": 94084.89,
+        "visits": 2797
+      },
+      "4690228106095": {
+        "units": 60500,
+        "spend": 110972.03,
+        "visits": 5741,
+        "stores": {
+          "spar": 49019,
+          "carrefour": 11482
+        },
+        "brands": {
+          "spar": 49019,
+          "carrefour": 11482
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 9421,
+            "spend": 18370.95
+          },
+          {
+            "start": "2026-06-11",
+            "units": 16781,
+            "spend": 30298.82
+          },
+          {
+            "start": "2026-06-18",
+            "units": 19284,
+            "spend": 36076.55
+          },
+          {
+            "start": "2026-06-25",
+            "units": 11923,
+            "spend": 20197.74
+          },
+          {
+            "start": "2026-07-02",
+            "units": 3091,
+            "spend": 6027.97
+          }
+        ]
+      },
+      "2105397000003": {
+        "units": 41953,
+        "spend": 79710.5,
+        "visits": 3386
+      },
+      "4820269950016": {
+        "units": 5594,
+        "spend": 48650.64,
+        "visits": 589
+      },
+      "4860107700564": {
+        "units": 6183,
+        "spend": 11066.73,
+        "visits": 589
+      },
+      "8690526064239": {
+        "units": 60059,
+        "spend": 114111.87,
+        "visits": 4711,
+        "stores": {
+          "carrefour": 60059
+        },
+        "brands": {
+          "carrefour": 60059
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 13543,
+            "spend": 25731.11
+          },
+          {
+            "start": "2026-06-11",
+            "units": 20020,
+            "spend": 38037.29
+          },
+          {
+            "start": "2026-06-18",
+            "units": 11040,
+            "spend": 20976.45
+          },
+          {
+            "start": "2026-06-25",
+            "units": 13837,
+            "spend": 26290.48
+          },
+          {
+            "start": "2026-07-02",
+            "units": 1619,
+            "spend": 3076.55
+          }
+        ]
+      },
+      "4760081602222": {
+        "units": 9274,
+        "spend": 11035.82,
+        "visits": 883
+      },
+      "4820182060908": {
+        "units": 32826,
+        "spend": 64011.29,
+        "visits": 2797
+      },
+      "4860103821768": {
+        "units": 13543,
+        "spend": 67168.79,
+        "visits": 1030
+      },
+      "4860103350213": {
+        "units": 7066,
+        "spend": 21903.83,
+        "visits": 736
+      },
+      "4860101500054": {
+        "units": 27969,
+        "spend": 33562.32,
+        "visits": 2208
+      },
+      "4860127940049": {
+        "units": 25319,
+        "spend": 25065.75,
+        "visits": 1914
+      },
+      "4607096002985": {
+        "units": 9274,
+        "spend": 16600.1,
+        "visits": 736
+      },
+      "8691707087962": {
+        "units": 36359,
+        "spend": 99987.73,
+        "visits": 2797
+      },
+      "4860008432397": {
+        "units": 34887,
+        "spend": 143380.27,
+        "visits": 2797
+      },
+      "9907127": {
+        "units": 6919,
+        "spend": 5188.91,
+        "visits": 589
+      },
+      "2026400": {
+        "units": 6771,
+        "spend": 55795.88,
+        "visits": 589
+      },
+      "2020715": {
+        "units": 4269,
+        "spend": 4951.91,
+        "visits": 294
+      },
+      "4602014018246": {
+        "units": 12807,
+        "spend": 50586.36,
+        "visits": 1030
+      },
+      "4607015360066": {
+        "units": 29146,
+        "spend": 45942.1,
+        "visits": 2502
+      },
+      "3800233710014": {
+        "units": 15751,
+        "spend": 15593.23,
+        "visits": 1178
+      },
+      "4690228028847": {
+        "units": 15751,
+        "spend": 40951.91,
+        "visits": 1030
+      },
+      "2200000227508": {
+        "units": 21492,
+        "spend": 27939.16,
+        "visits": 1619
+      },
+      "46234964": {
+        "units": 10599,
+        "spend": 11967.62,
+        "visits": 883
+      },
+      "4860008432298": {
+        "units": 60500,
+        "spend": 145201.18,
+        "visits": 4563,
+        "stores": {
+          "2nabiji": 60500
+        },
+        "brands": {
+          "2nabiji": 60500
+        },
+        "weekly_buckets": [
+          {
+            "start": "2026-06-04",
+            "units": 17812,
+            "spend": 42747.79
+          },
+          {
+            "start": "2026-06-11",
+            "units": 13395,
+            "spend": 32149.17
+          },
+          {
+            "start": "2026-06-18",
+            "units": 14573,
+            "spend": 34975.47
+          },
+          {
+            "start": "2026-06-25",
+            "units": 14720,
+            "spend": 35328.75
+          }
+        ]
+      },
+      "2200000447937": {
+        "units": 14426,
+        "spend": 33900.88,
+        "visits": 1325
+      },
+      "4860103820624": {
+        "units": 19431,
+        "spend": 125328.75,
+        "visits": 1619
+      },
+      "4760081602079": {
+        "units": 20167,
+        "spend": 60298.82,
+        "visits": 1766
+      },
+      "3800233710205": {
+        "units": 16487,
+        "spend": 16321.88,
+        "visits": 1030
+      },
+      "4860009250495": {
+        "units": 6035,
+        "spend": 15027.97,
+        "visits": 442
+      },
+      "4860008432267": {
+        "units": 33415,
+        "spend": 90220.8,
+        "visits": 2797
+      },
+      "8690526025964": {
+        "units": 18695,
+        "spend": 32715.9,
+        "visits": 1619
+      },
+      "4607024896518": {
+        "units": 10451,
+        "spend": 13064.28,
+        "visits": 883
+      },
+      "2021350": {
+        "units": 15162,
+        "spend": 123418.06,
+        "visits": 1178
+      },
+      "4860119970023": {
+        "units": 1766,
+        "spend": 1766.44,
+        "visits": 147
+      },
+      "4860009623527": {
+        "units": 4858,
+        "spend": 24045.63,
+        "visits": 442
+      },
+      "8681161444647": {
+        "units": 9863,
+        "spend": 12722.77,
+        "visits": 736
+      },
+      "4605627007355": {
+        "units": 12807,
+        "spend": 24204.61,
+        "visits": 1325
+      },
+      "4860103820891": {
+        "units": 13395,
+        "spend": 73675.17,
+        "visits": 1178
+      },
+      "2020716": {
+        "units": 6771,
+        "spend": 7380.77,
+        "visits": 589
+      },
+      "4600605029725": {
+        "units": 7213,
+        "spend": 23442.1,
+        "visits": 589
+      },
+      "4002334111694": {
+        "units": 6183,
+        "spend": 21947.99,
+        "visits": 589
+      },
+      "4605627003326": {
+        "units": 20608,
+        "spend": 38949.95,
+        "visits": 2061
+      },
+      "86902625": {
+        "units": 2650,
+        "spend": 7286.56,
+        "visits": 294
+      },
+      "4860110250049": {
+        "units": 3533,
+        "spend": 22433.76,
+        "visits": 294
+      },
+      "2001186": {
+        "units": 11923,
+        "spend": 21462.22,
+        "visits": 883
+      },
+      "4600605028872": {
+        "units": 9127,
+        "spend": 29661.43,
+        "visits": 736
+      },
+      "4860009789896": {
+        "units": 4269,
+        "spend": 8324.34,
+        "visits": 294
+      },
+      "2020724": {
+        "units": 13395,
+        "spend": 11118.25,
+        "visits": 1030
+      },
+      "4860051007146": {
+        "units": 6035,
+        "spend": 22632.48,
+        "visits": 442
+      },
+      "4860103350220": {
+        "units": 2208,
+        "spend": 7838.57,
+        "visits": 147
+      },
+      "4860009623480": {
+        "units": 19872,
+        "spend": 98368.5,
+        "visits": 1619
+      },
+      "2104049000002": {
+        "units": 26202,
+        "spend": 36158.98,
+        "visits": 1914
+      },
+      "4860006060653": {
+        "units": 23111,
+        "spend": 20799.8,
+        "visits": 1914
+      },
+      "400265044408": {
+        "units": 24436,
+        "spend": 48627.09,
+        "visits": 1766
+      },
+      "6221134013078": {
+        "units": 6035,
+        "spend": 9656.53,
+        "visits": 442
+      },
+      "4860051005708": {
+        "units": 2208,
+        "spend": 8500.98,
+        "visits": 147
+      },
+      "4760081602239": {
+        "units": 8243,
+        "spend": 9809.62,
+        "visits": 883
+      },
+      "4605627003128": {
+        "units": 13395,
+        "spend": 30675.66,
+        "visits": 1178
+      },
+      "2026008": {
+        "units": 2502,
+        "spend": 19043.67,
+        "visits": 294
+      },
+      "4860051004954": {
+        "units": 6477,
+        "spend": 24936.21,
+        "visits": 589
+      },
+      "4860111650848": {
+        "units": 24877,
+        "spend": 82095.19,
+        "visits": 1914
+      },
+      "8692806080892": {
+        "units": 13248,
+        "spend": 18415.11,
+        "visits": 883
+      },
+      "4860006680240": {
+        "units": 23111,
+        "spend": 38132.97,
+        "visits": 1914
+      },
+      "2026408": {
+        "units": 5152,
+        "spend": 36631.5,
+        "visits": 442
+      },
+      "2000516": {
+        "units": 6330,
+        "spend": 7722.28,
+        "visits": 589
+      },
+      "4860051005029": {
+        "units": 5741,
+        "spend": 24973.01,
+        "visits": 442
+      },
+      "4860006060790": {
+        "units": 15456,
+        "spend": 23699.71,
+        "visits": 1178
+      },
+      "4607026554522": {
+        "units": 1766,
+        "spend": 2384.69,
+        "visits": 147
+      },
+      "4760081604615": {
+        "units": 8243,
+        "spend": 9809.62,
+        "visits": 736
+      },
+      "4823077618161": {
+        "units": 18400,
+        "spend": 56041.71,
+        "visits": 1472
+      },
+      "2026012": {
+        "units": 2355,
+        "spend": 9986.26,
+        "visits": 294
+      },
+      "7622202841545": {
+        "units": 3974,
+        "spend": 3934.74,
+        "visits": 442
+      },
+      "4860006060462": {
+        "units": 17517,
+        "spend": 27151.62,
+        "visits": 1178
+      },
+      "4860006060257": {
+        "units": 15015,
+        "spend": 16516.19,
+        "visits": 1030
+      },
+      "4860006060073": {
+        "units": 7360,
+        "spend": 11408.24,
+        "visits": 736
+      },
+      "4860006050050": {
+        "units": 6624,
+        "spend": 11923.45,
+        "visits": 589
+      },
+      "2005975": {
+        "units": 4711,
+        "spend": 6312.07,
+        "visits": 442
+      },
+      "4680021881855": {
+        "units": 3091,
+        "spend": 9119.23,
+        "visits": 147
+      },
+      "4600699510956": {
+        "units": 2061,
+        "spend": 7728.16,
+        "visits": 147
+      },
+      "4820002306704": {
+        "units": 2208,
+        "spend": 8721.79,
+        "visits": 147
+      },
+      "4860123600039": {
+        "units": 4122,
+        "spend": 23493.62,
+        "visits": 294
+      },
+      "4860006060769": {
+        "units": 12807,
+        "spend": 16648.68,
+        "visits": 883
+      },
+      "5901696000099": {
+        "units": 6330,
+        "spend": 18925.91,
+        "visits": 442
+      },
+      "2104312000005": {
+        "units": 18695,
+        "spend": 25237.98,
+        "visits": 1472
+      },
+      "4860105010108": {
+        "units": 6183,
+        "spend": 17084.4,
+        "visits": 442
+      },
+      "4860008431499": {
+        "units": 1619,
+        "spend": 4776.74,
+        "visits": 147
+      },
+      "4860103820860": {
+        "units": 8391,
+        "spend": 53368.5,
+        "visits": 736
+      },
+      "4860103820327": {
+        "units": 8391,
+        "spend": 33478.41,
+        "visits": 589
+      },
+      "8692806060559": {
+        "units": 2061,
+        "spend": 1957.8,
+        "visits": 147
+      },
+      "5449000331496": {
+        "units": 2061,
+        "spend": 4430.81,
+        "visits": 147
+      },
+      "4690228006975": {
+        "units": 3827,
+        "spend": 10812.07,
+        "visits": 294
+      },
+      "4860103820778": {
+        "units": 6183,
+        "spend": 25039.25,
+        "visits": 442
+      },
+      "4860006060172": {
+        "units": 3680,
+        "spend": 4416.09,
+        "visits": 294
+      },
+      "7622210457554": {
+        "units": 16928,
+        "spend": 37242.39,
+        "visits": 1178
+      },
+      "8684862900979": {
+        "units": 12512,
+        "spend": 12512.27,
+        "visits": 883
+      },
+      "4603290004855": {
+        "units": 5005,
+        "spend": 16516.19,
+        "visits": 442
+      },
+      "29288": {
+        "units": 4711,
+        "spend": 6594.7,
+        "visits": 442
+      },
+      "4605627003241": {
+        "units": 9863,
+        "spend": 18640.33,
+        "visits": 736
+      },
+      "4860051006576": {
+        "units": 3091,
+        "spend": 7109.91,
+        "visits": 294
+      },
+      "4860051007733": {
+        "units": 12218,
+        "spend": 28424.93,
+        "visits": 883
+      },
+      "4607035653315": {
+        "units": 5594,
+        "spend": 12809.62,
+        "visits": 589
+      },
+      "9907177": {
+        "units": 7802,
+        "spend": 11702.65,
+        "visits": 736
+      },
+      "4600605022245": {
+        "units": 7066,
+        "spend": 24376.84,
+        "visits": 736
+      },
+      "4860119970139": {
+        "units": 6919,
+        "spend": 10031.89,
+        "visits": 589
+      },
+      "4620004251510": {
+        "units": 15456,
+        "spend": 38486.26,
+        "visits": 1178
+      },
+      "9907112": {
+        "units": 1914,
+        "spend": 3731.6,
+        "visits": 147
+      },
+      "4602014007714": {
+        "units": 4269,
+        "spend": 16862.12,
+        "visits": 294
+      },
+      "5411188128113": {
+        "units": 5594,
+        "spend": 16501.47,
+        "visits": 442
+      },
+      "4820206290458": {
+        "units": 3386,
+        "spend": 1862.12,
+        "visits": 294
+      },
+      "4860051005562": {
+        "units": 3533,
+        "spend": 13601.57,
+        "visits": 294
+      },
+      "7622210653086": {
+        "units": 5888,
+        "spend": 5829.24,
+        "visits": 442
+      },
+      "4860103822048": {
+        "units": 2502,
+        "spend": 16391.07,
+        "visits": 147
+      },
+      "4600949010205": {
+        "units": 3827,
+        "spend": 9759.57,
+        "visits": 442
+      },
+      "4690228028946": {
+        "units": 10157,
+        "spend": 20212.46,
+        "visits": 736
+      },
+      "2026550": {
+        "units": 9863,
+        "spend": 54145.73,
+        "visits": 883
+      },
+      "4860006060806": {
+        "units": 1766,
+        "spend": 3444.55,
+        "visits": 147
+      },
+      "2005632": {
+        "units": 2797,
+        "spend": 16053.97,
+        "visits": 294
+      },
+      "2001539": {
+        "units": 8391,
+        "spend": 12501.96,
+        "visits": 736
+      },
+      "3800020453438": {
+        "units": 1178,
+        "spend": 3002.94,
+        "visits": 147
+      },
+      "2026549": {
+        "units": 1178,
+        "spend": 8961.73,
+        "visits": 147
+      },
+      "4869002016084": {
+        "units": 2502,
+        "spend": 2752.7,
+        "visits": 147
+      },
+      "9907111": {
+        "units": 1178,
+        "spend": 1589.79,
+        "visits": 147
+      },
+      "4860009788387": {
+        "units": 3091,
+        "spend": 12210.5,
+        "visits": 294
+      },
+      "2026255": {
+        "units": 3386,
+        "spend": 20686.46,
+        "visits": 294
+      },
+      "4860009782705": {
+        "units": 3091,
+        "spend": 2163.89,
+        "visits": 294
+      },
+      "8690526023861": {
+        "units": 2355,
+        "spend": 3650.64,
+        "visits": 294
+      },
+      "4860119970238": {
+        "units": 3091,
+        "spend": 5409.72,
+        "visits": 294
+      },
+      "4823077623790": {
+        "units": 6477,
+        "spend": 22604.51,
+        "visits": 442
+      },
+      "2026547": {
+        "units": 2650,
+        "spend": 16136.41,
+        "visits": 294
+      },
+      "4860006060196": {
+        "units": 5741,
+        "spend": 7176.15,
+        "visits": 442
+      },
+      "4860009625583": {
+        "units": 5005,
+        "spend": 34784.1,
+        "visits": 442
+      },
+      "4860009786574": {
+        "units": 3386,
+        "spend": 4232.09,
+        "visits": 294
+      },
+      "4603290004824": {
+        "units": 5152,
+        "spend": 10252.7,
+        "visits": 294
+      },
+      "4860119970054": {
+        "units": 2061,
+        "spend": 2060.84,
+        "visits": 147
+      },
+      "4860103820235": {
+        "units": 2944,
+        "spend": 18989.21,
+        "visits": 294
+      },
+      "4869002002926": {
+        "units": 3827,
+        "spend": 6889.11,
+        "visits": 294
+      },
+      "6221134013207": {
+        "units": 3974,
+        "spend": 6359.18,
+        "visits": 294
+      },
+      "4860051006767": {
+        "units": 3680,
+        "spend": 13800.29,
+        "visits": 294
+      },
+      "4860119970313": {
+        "units": 3091,
+        "spend": 5409.72,
+        "visits": 294
+      },
+      "4860051005586": {
+        "units": 1914,
+        "spend": 7367.52,
+        "visits": 147
+      },
+      "4860104880429": {
+        "units": 1472,
+        "spend": 8817.47,
+        "visits": 147
+      },
+      "4860119970047": {
+        "units": 1914,
+        "spend": 2200.69,
+        "visits": 147
+      },
+      "9907116": {
+        "units": 2208,
+        "spend": 2539.25,
+        "visits": 147
+      },
+      "4860009787410": {
+        "units": 1914,
+        "spend": 11386.16,
+        "visits": 147
+      },
+      "4860009622803": {
+        "units": 883,
+        "spend": 7904.81,
+        "visits": 147
+      },
+      "5903228103322": {
+        "units": 1619,
+        "spend": 6395.98,
+        "visits": 147
+      },
+      "4607148390534": {
+        "units": 1619,
+        "spend": 8015.21,
+        "visits": 147
+      },
+      "4810268050954": {
+        "units": 1472,
+        "spend": 8081.45,
+        "visits": 147
+      },
+      "7622210457745": {
+        "units": 1914,
+        "spend": 5071.15,
+        "visits": 147
+      },
+      "4860125540135": {
+        "units": 1766,
+        "spend": 6094.21,
+        "visits": 147
+      },
+      "4860113560152": {
+        "units": 1914,
+        "spend": 5836.6,
+        "visits": 147
+      },
+      "4810268046100": {
+        "units": 3386,
+        "spend": 16759.08,
+        "visits": 294
+      },
+      "5201004056078": {
+        "units": 1619,
+        "spend": 9715.41,
+        "visits": 147
+      },
+      "40144382": {
+        "units": 1472,
+        "spend": 2870.46,
+        "visits": 147
+      },
+      "7622202841576": {
+        "units": 3091,
+        "spend": 3060.35,
+        "visits": 147
+      },
+      "6221134013320": {
+        "units": 1619,
+        "spend": 2590.78,
+        "visits": 147
+      },
+      "4810168024260": {
+        "units": 1178,
+        "spend": 9373.9,
+        "visits": 147
+      }
+    },
+    "sku_breakdown_meta": {
+      "distinct_skus_sold": 329,
+      "catalog_size": 9132,
+      "top_n_detailed": 50,
+      "units_without_barcode": 6330,
+      "total_sku_units": 10914377
+    }
+  },
+  "insights": [
+    "✓ Agents distributed realistically across Tbilisi districts",
+    "✓ Real Georgian economic events integrated (child benefits, pensions, utilities)",
+    "✓ Stress levels manageable across the population",
+    "✓ LLM reasoning active (Taalas Cloud)",
+    "✓ Final average household budget: ₾2,491"
+  ]
+}

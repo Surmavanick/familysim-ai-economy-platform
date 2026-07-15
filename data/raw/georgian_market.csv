@@ -1,0 +1,17 @@
+id,name,price,category,store
+m1,Milk Sante 1L,5.20,Dairy,Spar
+m2,Milk Sante 1L,4.60,Dairy,Magniti
+b1,Bread Ipkli,1.40,Bakery,Spar
+b2,Bread Ipkli,1.15,Bakery,Magniti
+c1,Coffee Pellini,25.00,Pantry,Spar
+c2,Coffee Jacobs,18.00,Pantry,Magniti
+e1,Eggs 10pcs,6.50,Dairy,Spar
+e2,Eggs 10pcs,5.80,Dairy,Magniti
+k1,Ketchup,4.50,Pantry,Spar
+k2,Ketchup,3.90,Pantry,Magniti
+w1,Water 5L,3.20,Drinks,Spar
+w2,Water 5L,2.80,Drinks,Magniti
+s1,Sulguni Cheese,18.00,Dairy,Spar
+s2,Sulguni Cheese,16.50,Dairy,Magniti
+p1,Pasta Barilla,5.50,Pantry,Spar
+p2,Pasta Makfa,3.20,Pantry,Magniti
