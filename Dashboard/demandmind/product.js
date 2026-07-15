@@ -272,8 +272,14 @@ window.addEventListener("error", function (e) {
       };
     }
     var store = storeById(selectedStoreId);
-    var storeBrand = store ? brandById(store.brandId) : null;
-    var storeSeed = store ? store.id.length + store.district.length + (storeBrand ? storeBrand.share : 0) : 0;
+    // store is either a demo STORES entry (id/brandId/district) or a raw
+    // retailDetail.offers entry (store_slug/brand_id, no district) — this
+    // branch only runs when there's no forecast to match, which happens for
+    // both shapes now that the static export omits forecast.
+    var storeKey = store ? (store.id || store.store_slug || "") : "";
+    var storeBrand = store ? brandById(store.brandId || store.brand_id) : null;
+    var storeDistrict = store ? (store.district || districtForSlug(storeKey)) : "";
+    var storeSeed = store ? storeKey.length + storeDistrict.length + (storeBrand ? storeBrand.share : 0) : 0;
     var scale = scope === "dc" ? 1 : 0.14 + (storeSeed % 9) * 0.012;
     var presets = {
       year: {
