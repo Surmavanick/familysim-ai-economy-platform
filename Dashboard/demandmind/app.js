@@ -1686,9 +1686,17 @@ function renderHeroForecast(el) {
   // Same "extrapolate the small simulated sample to the real target
   // population" step already disclosed in the sidebar's Market scale row —
   // without it, this chart's units/day reads as this run's ~2,000-person
-  // sample, not the ~300,000-person city it's meant to represent.
+  // sample, not the ~300,000-person city it's meant to represent. On a
+  // no-backend deploy (Vercel) there's no real simulation_metadata to read,
+  // so this reuses the same 400-person reference baseline reportDemandScale()
+  // already assumes and the same 300,000 target population, so the demo
+  // path lands in the same believable range as a real run instead of
+  // looking arbitrarily smaller just because no simulation has run yet.
+  const DEMO_TARGET_POPULATION = 300000;
+  const DEMO_BASELINE_POPULATION = 400;
   const meta = liveReport ? (liveReport.simulation_metadata || {}) : {};
-  const marketMultiplier = meta.scaling_factor || 1;
+  const targetPopulation = meta.target_population || DEMO_TARGET_POPULATION;
+  const marketMultiplier = liveReport ? (meta.scaling_factor || 1) : +(DEMO_TARGET_POPULATION / DEMO_BASELINE_POPULATION).toFixed(1);
   const baseDaily = scopedSeries("daily", brand);
   const sd = demoNow;
   const baseTs = Date.UTC(sd.getUTCFullYear(), sd.getUTCMonth(), sd.getUTCDate());
@@ -1702,8 +1710,10 @@ function renderHeroForecast(el) {
   const lastTs = baseTs + (baseDaily.length - 1 - SPLIT) * DAY;
   const scaleNote = gel("heroScaleNote");
   if (scaleNote) {
-    if (marketMultiplier > 1 && meta.target_population) {
-      scaleNote.textContent = `Extrapolated ×${marketMultiplier} to city-wide scale — target population ${meta.target_population.toLocaleString("en-US")}.`;
+    if (marketMultiplier > 1) {
+      scaleNote.textContent = liveReport
+        ? `Extrapolated ×${marketMultiplier} to city-wide scale — target population ${targetPopulation.toLocaleString("en-US")}.`
+        : `Extrapolated ×${marketMultiplier} to a modeled ${targetPopulation.toLocaleString("en-US")}-person city scale (demo assumption).`;
       scaleNote.style.display = "";
     } else {
       scaleNote.style.display = "none";
