@@ -31,6 +31,20 @@ window.addEventListener("error", function (e) {
   var WAREHOUSE = "Tbilisi Distribution Center, GE";
   var NOW = new Date();
 
+  var STAT_ICONS = {
+    price: '<path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.57 3H4a1 1 0 0 0-1 1v5.57a2 2 0 0 0 .83 1.42l9.58 9.59a2 2 0 0 0 2.82 0l4.36-4.36a2 2 0 0 0 0-2.81z"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/>',
+    units: '<path d="M3 3v18h18M7 14v4M12 10v8M17 6v12"/>',
+    percent: '<circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M9.4 9.5h.01M14.6 14.5h.01"/>',
+    weight: '<path d="M12 2v20M5 7l-3 7a4 4 0 0 0 8 0zM19 7l-3 7a4 4 0 0 0 8 0zM5 7h14"/>',
+    volume: '<path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8"/>',
+    spread: '<path d="M7 17 17 7M7 7h10v10"/>',
+    chain: '<path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M9 13h1M14 9h1M14 13h1M10 21v-4h4v4"/>'
+  };
+  function statRow(icon, label, value) {
+    return '<div class="stat-row"><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      (STAT_ICONS[icon] || "") + '</svg></span><span class="stat-label">' + label + '</span><span class="stat-value mono">' + value + '</span></div>';
+  }
+
   var scope = "dc";
   var period = "year";
   var selectedStoreId = STORES.length ? STORES[0].id : "";
@@ -184,6 +198,23 @@ window.addEventListener("error", function (e) {
   var llmForecastDetail = null;
   var llmForecastStatus = "idle";
   function brandById(id) { return BRANDS.find(function (b) { return b.id === id; }); }
+  // The real per-SKU catalog spans many more chains (Carrefour, Agrohub, ...)
+  // than the curated demo BRANDS list — fall back to the real store_name from
+  // the fetched offers, then a title-cased id, instead of a generic label.
+  function brandDisplayName(id) {
+    if (!id) return null;
+    var known = brandById(id);
+    if (known) return known.name;
+    if (retailDetail && retailDetail.offers) {
+      var offer = retailDetail.offers.find(function (o) { return o.brand_id === id; });
+      if (offer && offer.store_name) return offer.store_name;
+    }
+    return id.replace(/[_-]+/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+  }
+  function brandColor(id) {
+    var known = brandById(id);
+    return known ? known.color : "#98A2B3";
+  }
   function storeById(id) {
     if (retailDetail && retailDetail.offers) {
       return retailDetail.offers.find(function (offer) { return offer.store_slug === id; }) || null;
@@ -353,10 +384,10 @@ window.addEventListener("error", function (e) {
     var seriesDefs = [
       {
         id: "sales", name: "Observed retail baseline", type: "areaspline",
-        color: "#4F46E5", lineWidth: 3,
+        color: "#3B6EF5", lineWidth: 3,
         fillColor: { linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-          stops: [[0, "rgba(79,70,229,0.18)"], [1, "rgba(79,70,229,0.02)"]] },
-        marker: { enabled: true, radius: 3, fillColor: "#4F46E5", lineWidth: 0 },
+          stops: [[0, "rgba(59,110,245,0.18)"], [1, "rgba(59,110,245,0.02)"]] },
+        marker: { enabled: true, radius: 3, fillColor: "#3B6EF5", lineWidth: 0 },
         data: seriesValues(d.sales), visible: visibleSeries.sales
       },
       {
@@ -396,8 +427,8 @@ window.addEventListener("error", function (e) {
         categories: d.labels, lineColor: LINE, tickColor: LINE, gridLineWidth: 0,
         labels: { style: { color: INK3 } },
         plotLines: nowIndex >= 0 ? [{
-          value: nowIndex, color: "#EF4444", width: 1.5, dashStyle: "ShortDash", zIndex: 5,
-          label: { text: "Now", style: { color: "#EF4444", fontWeight: "600" }, rotation: 0, y: -6 }
+          value: nowIndex, color: INK3, width: 1.5, dashStyle: "ShortDash", zIndex: 5,
+          label: { text: "Now", style: { color: INK3, fontWeight: "600" }, rotation: 0, y: -6 }
         }] : []
       },
       yAxis: {
@@ -521,12 +552,12 @@ window.addEventListener("error", function (e) {
         var share = 1 / Math.max(retailDetail.offers.length, 1);
         var recommended = Math.max(1, Math.round(monthUnits * share * (offer.is_on_sale ? 1.08 : 0.94)));
         if (tab === "rec") {
-          return { num: "rec-" + (1000 + i), store: offer.store_name, last: "Modelled from live price row", amount: recommended, wh: WAREHOUSE, deliv: "Planned", kind: "rec" };
+          return { num: "rec-" + (1000 + i), store: offer.store_name, brandId: offer.brand_id, last: "Modelled from live price row", amount: recommended, wh: WAREHOUSE, deliv: "Planned", kind: "rec" };
         }
         if (tab === "auto") {
-          return { num: "plan-" + (2000 + i), store: offer.store_name, last: dateLabel(NOW), amount: Math.max(1, Math.round(recommended * 0.86)), wh: WAREHOUSE, deliv: dateLabel(addDays(NOW, 2 + (i % 3))), kind: "auto" };
+          return { num: "plan-" + (2000 + i), store: offer.store_name, brandId: offer.brand_id, last: dateLabel(NOW), amount: Math.max(1, Math.round(recommended * 0.86)), wh: WAREHOUSE, deliv: dateLabel(addDays(NOW, 2 + (i % 3))), kind: "auto" };
         }
-        return { num: "live-" + (3000 + i), store: offer.store_name, last: dateLabel(NOW), amount: recommended, wh: "Current price " + lari(offer.effective_price), deliv: offer.is_on_sale ? "Promo live" : "Regular price", kind: "history" };
+        return { num: "live-" + (3000 + i), store: offer.store_name, brandId: offer.brand_id, last: dateLabel(NOW), amount: recommended, wh: "Current price " + lari(offer.effective_price), deliv: offer.is_on_sale ? "Promo live" : "Regular price", kind: "history" };
       });
     }
     var rng = rngOf(seed + tab.length * 13);
@@ -535,9 +566,9 @@ window.addEventListener("error", function (e) {
       var daysBack = 2 + Math.floor(rng() * 24);
       var last = dateLabel(addDays(NOW, -daysBack));
       var deliv = dateLabel(addDays(NOW, 2 + (i % 4)));
-      if (tab === "rec") return { num: "rep-" + (1000 + i), store: b.name, last: "Model generated", amount: Math.round(amount * 1.35), wh: WAREHOUSE, deliv: "Planned", kind: "rec" };
-      if (tab === "auto") return { num: "ap-" + (2200 + i), store: b.name, last: last, amount: amount, wh: WAREHOUSE, deliv: deliv, kind: "auto" };
-      return { num: "ord-" + (3300 + i), store: b.name, last: last, amount: amount, wh: WAREHOUSE, deliv: deliv, kind: "history" };
+      if (tab === "rec") return { num: "rep-" + (1000 + i), store: b.name, brandId: b.id, last: "Model generated", amount: Math.round(amount * 1.35), wh: WAREHOUSE, deliv: "Planned", kind: "rec" };
+      if (tab === "auto") return { num: "ap-" + (2200 + i), store: b.name, brandId: b.id, last: last, amount: amount, wh: WAREHOUSE, deliv: deliv, kind: "auto" };
+      return { num: "ord-" + (3300 + i), store: b.name, brandId: b.id, last: last, amount: amount, wh: WAREHOUSE, deliv: deliv, kind: "history" };
     });
   }
 
@@ -559,7 +590,7 @@ window.addEventListener("error", function (e) {
       return '' +
         '<tr>' +
           '<td class="num-col">' + r.num + '</td>' +
-          '<td style="font-weight:700;color:#101828">' + r.store + '</td>' +
+          '<td style="font-weight:700;color:#101828"><span class="chain-dot" style="background:' + brandColor(r.brandId) + '"></span>' + escapeHtml(r.store) + '</td>' +
           '<td>' + r.last + '</td>' +
           '<td class="num-col">' + r.amount + ' ' + tag + '</td>' +
           '<td>' + r.wh + '</td>' +
@@ -570,7 +601,8 @@ window.addEventListener("error", function (e) {
   }
 
   function renderProductCard() {
-    var cheapestBrand = BRANDS.find(function (b) { return b.id === summaryValue("cheapest_brand_id", P.cheapestBrand); });
+    var cheapestBrandId = summaryValue("cheapest_brand_id", P.cheapestBrand);
+    var cheapestName = brandDisplayName(cheapestBrandId);
     var loadWeight = (0.4 + (seed % 35) / 10).toFixed(1);
     var caseVolume = 32 + (seed % 42);
     var allBrandPrices = Object.values(P.brandPrices);
@@ -579,11 +611,14 @@ window.addEventListener("error", function (e) {
     var liveStores = summaryValue("store_count", BRANDS.length);
     var promoRate = summaryValue("promo_rate", 0);
     var modeledYearUnits = summaryValue("units_year_modeled", P.totalUnits);
+    var displayName = retailDetail && retailDetail.display_name ? retailDetail.display_name : P.name;
 
-    gel("ppName").textContent = retailDetail && retailDetail.display_name ? retailDetail.display_name : P.name;
+    var nameEl = gel("ppName");
+    nameEl.textContent = displayName;
+    nameEl.title = displayName;
     gel("ppSku").textContent = "SKU: " + effectiveBarcode;
     renderProductVisual();
-    document.title = "Datasight — " + (retailDetail && retailDetail.display_name ? retailDetail.display_name : P.name);
+    document.title = "Datasight — " + displayName;
     var freshness = document.querySelector(".freshness");
     if (freshness) {
       freshness.innerHTML = '<span class="dot"></span>Simulation · ' + NOW.toLocaleString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
@@ -592,26 +627,20 @@ window.addEventListener("error", function (e) {
     gel("ppTags").innerHTML =
       '<span class="tag-chip gray">' + P.category + '</span>' +
       '<span class="tag-chip">' + liveStores + ' live stores</span>' +
-      '<span class="tag-chip blue">Cheapest: ' + (cheapestBrand ? cheapestBrand.name : "Retail row") + '</span>';
+      (cheapestName ? '<span class="tag-chip blue"><span class="chain-dot" style="background:' + brandColor(cheapestBrandId) + '"></span>Cheapest: ' + escapeHtml(cheapestName) + '</span>' : "");
 
-    gel("ppLoad").innerHTML = [
-      ["Avg price", lari(avgPrice)],
-      ["Modeled units / year", (modeledYearUnits / 1000).toFixed(1) + "k"],
-      ["Promo rate", promoRate.toFixed(1) + "%"]
-    ].map(function (entry) {
-      return '<div><div class="l">' + entry[0] + '</div><div class="v mono">' + entry[1] + '</div></div>';
-    }).join("");
+    gel("ppLoad").innerHTML =
+      statRow("price", "Avg price", lari(avgPrice)) +
+      statRow("units", "Modeled units / year", (modeledYearUnits / 1000).toFixed(1) + "k") +
+      statRow("percent", "Promo rate", promoRate.toFixed(1) + "%");
 
     gel("ppPriceChip").textContent = "Avg price " + lari(avgPrice);
     gel("ppUnitsChip").textContent = Math.round(summaryValue("units_month_modeled", P.totalUnits / 12)).toLocaleString("en-US") + " units / mo";
-    gel("ppMetaStats").innerHTML = [
-      ["Load weight", loadWeight + " kg"],
-      ["Case volume", caseVolume + " L"],
-      ["Price spread", lari(spread)],
-      ["Top chain", (BRANDS.find(function (b) { return b.id === summaryValue("top_brand_id", P.topBrand); }) || { name: "Mixed" }).name]
-    ].map(function (item) {
-      return '<div class="mini"><span class="k">' + item[0] + '</span><span class="v mono">' + item[1] + '</span></div>';
-    }).join("");
+    gel("ppMetaStats").innerHTML =
+      statRow("weight", "Load weight", loadWeight + " kg") +
+      statRow("volume", "Case volume", caseVolume + " L") +
+      statRow("spread", "Price spread", lari(spread)) +
+      statRow("chain", "Top chain", escapeHtml(brandDisplayName(summaryValue("top_brand_id", P.topBrand)) || "Mixed"));
   }
 
   function renderWarehouse() {
@@ -669,8 +698,11 @@ window.addEventListener("error", function (e) {
             return response.json();
           })
           .then(applyPayload)
-          .catch(function (err) {
-            setBanner("retail detail: " + err.message);
+          .catch(function () {
+            // No curated-brand offer exists for this barcode at all (most of
+            // the real catalog only ever sold through non-curated chains) —
+            // that's an expected, common case now, not an error. The page
+            // already rendered fine from the demo catalog at init(); leave it.
           });
       });
   }

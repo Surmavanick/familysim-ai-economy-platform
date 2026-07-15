@@ -92,6 +92,12 @@ def main():
     barcodes = [r[0] for r in conn.execute(
         "SELECT DISTINCT barcode FROM products WHERE barcode IS NOT NULL"
     ).fetchall()]
+    # Clear stale files first — a barcode that had curated-brand offers in a
+    # previous export but doesn't anymore (e.g. after tightening the brand
+    # filter) must not leave its old JSON snapshot sitting around unchanged.
+    if OUT_DIR.exists():
+        for existing in OUT_DIR.glob("*.json"):
+            existing.unlink()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     written = 0
     for barcode in barcodes:
@@ -104,6 +110,7 @@ def main():
             """,
             (barcode,),
         ).fetchall()
+        rows = [r for r in rows if serve.STORE_BRAND_MAP.get(r["store_slug"], r["store_slug"]) in serve.CURATED_BRAND_IDS]
         payload = build_payload(barcode, rows)
         if payload is None:
             continue

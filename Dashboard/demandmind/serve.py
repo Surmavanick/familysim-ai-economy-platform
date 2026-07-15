@@ -49,6 +49,10 @@ STORE_BRAND_MAP = {
     "carrefour": "carrefour",
     "goodwill": "goodwill",
 }
+# Only these chains are part of the curated demo brand set (Kalata=2nabiji,
+# Magniti, Spar, Daily) — every other real scraped chain (Carrefour, Agrohub,
+# Goodwill, Europroduct, Nikora, ...) must not surface in retail product detail.
+CURATED_BRAND_IDS = {"2nabiji", "magniti", "spar", "daily"}
 CATEGORY_FACTOR_MAP = {
     "hot_drinks": 0.085,
     "dairy": 0.11,
@@ -2239,6 +2243,7 @@ def _retail_product_detail_payload(barcode):
         (barcode,),
     ).fetchall()
     conn.close()
+    rows = [r for r in rows if STORE_BRAND_MAP.get(r["store_slug"], r["store_slug"]) in CURATED_BRAND_IDS]
     if not rows:
         return {"error": f"barcode {barcode} not found"}
 
