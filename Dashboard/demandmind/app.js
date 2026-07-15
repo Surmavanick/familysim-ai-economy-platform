@@ -80,6 +80,22 @@ const SEGMENT_AFFINITY = {
   daily:     { Father: 0.85, Mother: 1.05, Child: 0.85, Grandparent: 1.35 },
 };
 
+// Approximate real Tbilisi district centers, used to scatter demo store pins
+// and household counts when no backend (/store-locations, simulation report)
+// is reachable — e.g. the static Vercel deployment.
+const DISTRICT_CENTERS = {
+  Saburtalo: [41.7225, 44.7563], Vake: [41.7167, 44.7500], Didube: [41.7392, 44.7736],
+  Gldani: [41.7822, 44.8064], Isani: [41.6892, 44.8467], Samgori: [41.6975, 44.8636],
+  Ortachala: [41.6775, 44.8114], Mtatsminda: [41.6941, 44.7925], Nadzaladevi: [41.7364, 44.7961],
+  Krtsanisi: [41.6650, 44.8300],
+};
+const DISTRICT_NAMES = Object.keys(DISTRICT_CENTERS);
+const DEMO_HOUSEHOLDS_BY_DISTRICT = [
+  ["Gldani", 74], ["Saburtalo", 68], ["Vake", 59], ["Samgori", 44], ["Didube", 47],
+  ["Isani", 41], ["Nadzaladevi", 36], ["Mtatsminda", 31], ["Ortachala", 22], ["Krtsanisi", 18],
+];
+const DEMO_TOTAL_HOUSEHOLDS = DEMO_HOUSEHOLDS_BY_DISTRICT.reduce((s, [, n]) => s + n, 0);
+
 let liveReport = null;
 // The dashboard's own notion of "today" — real wall-clock time until the user
 // projects forward via the date picker, at which point every "Now" marker
@@ -191,19 +207,25 @@ function _panelEmpty(host, msg) { host.innerHTML = `<div class="pv-meta">${escap
 function renderForecastPanel() {
   const host = gel("panel-forecast"); if (!host) return;
   const bd = retailBreakdown();
-  const sku = bd && bd.sku_breakdown, meta = (bd && bd.sku_breakdown_meta) || {};
-  if (!sku || !Object.keys(sku).length) {
-    forecastTrendChart = destroyChart(forecastTrendChart);
-    forecastCatChart = destroyChart(forecastCatChart);
-    return _panelEmpty(host, "No simulated demand yet — run a simulation.");
-  }
+  const usingDemo = !(bd && bd.sku_breakdown && Object.keys(bd.sku_breakdown).length);
+  const demo = usingDemo ? demoSkuBreakdown() : null;
+  const sku = usingDemo ? demo.sku : bd.sku_breakdown;
+  const meta = usingDemo ? demo.meta : (bd.sku_breakdown_meta || {});
   const cov = meta.catalog_size ? ((meta.distinct_skus_sold / meta.catalog_size) * 100).toFixed(1) : "—";
-  const md = (liveReport && liveReport.simulation_metadata) || {};
   const fmtD = iso => { try { return new Date(iso + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }); } catch (_) { return iso; } };
-  const windowStr = (md.start_date && md.end_date) ? `${fmtD(md.start_date)} – ${fmtD(md.end_date)}` : "";
-  const cats = {};
-  Object.values(bd.brands || {}).forEach(b => (b.top_categories || []).forEach(c => { cats[c.name] = (cats[c.name] || 0) + c.units; }));
-  const catRows = Object.entries(cats).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  let windowStr;
+  if (usingDemo) {
+    const [from, to] = demo.windowStr.split(" – ");
+    windowStr = `${fmtD(from)} – ${fmtD(to)}`;
+  } else {
+    const md = (liveReport && liveReport.simulation_metadata) || {};
+    windowStr = (md.start_date && md.end_date) ? `${fmtD(md.start_date)} – ${fmtD(md.end_date)}` : "";
+  }
+  const catRows = usingDemo ? CATEGORIES.slice(0, 10).map(c => [c.name, c.units]) : (() => {
+    const cats = {};
+    Object.values(bd.brands || {}).forEach(b => (b.top_categories || []).forEach(c => { cats[c.name] = (cats[c.name] || 0) + c.units; }));
+    return Object.entries(cats).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  })();
   const withWeekly = Object.entries(sku).filter(([, e]) => e.weekly_buckets && e.weekly_buckets.length)
     .sort((a, b) => b[1].units - a[1].units);
   const skuRows = withWeekly.slice(0, 12).map(([bc, e]) => {
@@ -305,6 +327,83 @@ function syntheticBrandRows() {
   const totalSpend = rows.reduce((s, r) => s + r.spend, 0) || 1;
   rows.forEach(r => { r.share_of_spend = +((r.spend / totalSpend) * 100).toFixed(1); });
   return rows;
+}
+
+// Demo-only SKU/week grid for the Demand Forecast & Products tabs, shaped
+// exactly like the backend's real sku_breakdown so the same render code
+// (heatmap, category chart, tables) works whether the data is real or demo.
+function demoSkuBreakdown() {
+  const WEEKS = 12;
+  const weekStarts = Array.from({ length: WEEKS }, (_, i) => {
+    const d = new Date(demoNow); d.setDate(d.getDate() - (WEEKS - 1 - i) * 7);
+    return d.toISOString().slice(0, 10);
+  });
+  const sku = {};
+  PRODUCTS.forEach(p => {
+    const weekly = p.sales.weekly.slice(-WEEKS);
+    while (weekly.length < WEEKS) weekly.unshift(weekly[0] || 0);
+    sku[p.barcode] = {
+      units: p.totalUnits,
+      spend: +(p.totalUnits * p.avgPrice).toFixed(2),
+      visits: Math.max(1, Math.round(p.totalUnits / 8)),
+      weekly_buckets: weekly.map((units, i) => ({ start: weekStarts[i], units })),
+    };
+  });
+  return {
+    sku,
+    windowStr: `${weekStarts[0]} – ${weekStarts[WEEKS - 1]}`,
+    meta: {
+      distinct_skus_sold: PRODUCTS.length,
+      total_sku_units: PRODUCTS.reduce((s, p) => s + p.totalUnits, 0),
+      top_n_detailed: PRODUCTS.length,
+      catalog_size: PRODUCTS.length,
+    },
+  };
+}
+
+// Demo-only store universe for the Stores tab, shaped like the backend's
+// real /store-locations response — real Tbilisi store counts (BRAND_STORE_COUNT)
+// scattered around real district centers, with demand split proportional to
+// each brand's synthetic totals.
+function demoStoreLocations() {
+  const brandRows = syntheticBrandRows();
+  const stores = [];
+  let idx = 0;
+  BRANDS.forEach(b => {
+    const count = BRAND_STORE_COUNT[b.id] || 10;
+    const synthetic = brandRows.find(r => r.brand_id === b.id);
+    const totalSpend = synthetic ? synthetic.spend : 0;
+    const totalUnits = synthetic ? synthetic.units : 0;
+    const totalVisits = synthetic ? synthetic.visits : 0;
+    const shareEach = 1 / count;
+    for (let i = 0; i < count; i += 1) {
+      const district = DISTRICT_NAMES[idx % DISTRICT_NAMES.length];
+      const [lat0, lng0] = DISTRICT_CENTERS[district];
+      const hasDemand = Math.random() < 0.65;
+      const noise = 0.5 + Math.random();
+      stores.push({
+        id: `${b.id}-store-${i + 1}`,
+        name: `${b.name} ${district} #${String(i + 1).padStart(2, "0")}`,
+        chain: b.name,
+        brand_id: b.id,
+        lat: lat0 + (Math.random() - 0.5) * 0.018,
+        lng: lng0 + (Math.random() - 0.5) * 0.018,
+        district,
+        address: `${district}, Tbilisi`,
+        color: b.color,
+        spend: hasDemand ? +(totalSpend * shareEach * noise).toFixed(2) : 0,
+        units: hasDemand ? Math.round(totalUnits * shareEach * noise) : 0,
+        visits: hasDemand ? Math.round(totalVisits * shareEach * noise) : 0,
+        avg_ticket: hasDemand && synthetic ? synthetic.avg_ticket : 0,
+        has_demand: hasDemand,
+      });
+      idx += 1;
+    }
+  });
+  return {
+    stores,
+    meta: { total_stores: stores.length, stores_with_demand: stores.filter(s => s.has_demand).length },
+  };
 }
 
 function renderBrandsPanel() {
@@ -428,9 +527,9 @@ function renderStoresPanel() {
   if (storeLocationsCache) return renderStoresBody(host, storeLocationsCache);
   host.innerHTML = '<div class="pv-meta">Loading store locations…</div>';
   fetch(`/store-locations?t=${Date.now()}`, { cache: "no-store" })
-    .then(r => r.json())
+    .then(r => { if (!r.ok) throw new Error("unavailable"); return r.json(); })
     .then(data => { storeLocationsCache = data; renderStoresBody(host, data); })
-    .catch(e => { host.innerHTML = `<div class="pv-meta">Could not load store locations: ${escapeHtml(e.message || String(e))}</div>`; });
+    .catch(() => { storeLocationsCache = demoStoreLocations(); renderStoresBody(host, storeLocationsCache); });
 }
 
 function renderStoresBody(host, data) {
@@ -551,8 +650,10 @@ function renderStoresMap(allStores) {
 function renderProductsPanel() {
   const host = gel("panel-products"); if (!host) return;
   const bd = retailBreakdown();
-  const sku = bd && bd.sku_breakdown, meta = (bd && bd.sku_breakdown_meta) || {};
-  if (!sku || !Object.keys(sku).length) return _panelEmpty(host, "No SKU demand yet — run a simulation.");
+  const usingDemo = !(bd && bd.sku_breakdown && Object.keys(bd.sku_breakdown).length);
+  const demo = usingDemo ? demoSkuBreakdown() : null;
+  const sku = usingDemo ? demo.sku : bd.sku_breakdown;
+  const meta = usingDemo ? demo.meta : (bd.sku_breakdown_meta || {});
   const cov = meta.catalog_size ? ((meta.distinct_skus_sold / meta.catalog_size) * 100).toFixed(1) : "—";
   const rows = Object.entries(sku).sort((a, b) => b[1].units - a[1].units).slice(0, 30);
   const tr = rows.map(([bc, e]) => {
@@ -571,13 +672,20 @@ function renderProductsPanel() {
 
 function renderSegmentsPanel() {
   const host = gel("panel-segments"); if (!host) return;
-  if (!liveReport) return _panelEmpty(host, "No simulation loaded yet.");
-  const geo = (liveReport.geographic_distribution || {}).districts || {};
-  const soc = liveReport.social_dynamics || {};
-  const well = liveReport.agent_wellbeing || {};
-  const econ = liveReport.economic_summary || {};
-  const distRows = Object.entries(geo).sort((a, b) => b[1] - a[1]);
-  const tierRows = [["In crisis (<₾500)", soc.households_in_crisis || 0], ["Stable", soc.households_stable || 0], ["Comfortable (≥₾2k)", soc.households_comfortable || 0]];
+  const usingDemo = !liveReport;
+  const geo = usingDemo ? {} : ((liveReport.geographic_distribution || {}).districts || {});
+  const soc = usingDemo ? {} : (liveReport.social_dynamics || {});
+  const well = usingDemo ? {} : (liveReport.agent_wellbeing || {});
+  const econ = usingDemo ? {} : (liveReport.economic_summary || {});
+  const distRows = usingDemo ? DEMO_HOUSEHOLDS_BY_DISTRICT.slice() : Object.entries(geo).sort((a, b) => b[1] - a[1]);
+  const tierRows = usingDemo
+    ? [["In crisis (<₾500)", 29], ["Stable", 321], ["Comfortable (≥₾2k)", 90]]
+    : [["In crisis (<₾500)", soc.households_in_crisis || 0], ["Stable", soc.households_stable || 0], ["Comfortable (≥₾2k)", soc.households_comfortable || 0]];
+  if (usingDemo) {
+    well.avg_stress = 5.8; well.avg_health = 89; well.critical_hunger_count = 9;
+    well.avg_hunger = 38; well.avg_fun = 71; well.high_stress_count = 27;
+    econ.final_avg_budget = 2380; econ.total_population_wealth = 2380 * DEMO_TOTAL_HOUSEHOLDS * 2.5;
+  }
   host.innerHTML = `
     ${_statCards([["Avg budget", money(econ.final_avg_budget || 0)], ["Avg stress", well.avg_stress ?? "—"],
                   ["Avg health", well.avg_health ?? "—"], ["Critical hunger", well.critical_hunger_count ?? "—"]])}
