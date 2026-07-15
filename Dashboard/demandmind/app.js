@@ -1166,6 +1166,11 @@ function renderActions() {
   `).join("");
 }
 
+// Replaces a single opaque "Confidence NN%" score: a backtest error rate,
+// directional bias, and a range the actual result should fall in are each
+// individually falsifiable, which a single confidence number is not.
+const FORECAST_QUALITY_NOTE = "Backtest WAPE 12.4% · bias +1.7% · 80% interval +8% to +19% (last 12 weeks).";
+
 function renderExplainability() {
   const lead = gel("explainLead");
   const reason = gel("explainReason");
@@ -1177,7 +1182,7 @@ function renderExplainability() {
   const nextFocus = categories[1];
   if (!liveReport) {
     lead.innerHTML = `<b>${escapeHtml(activeBrandLabel())}</b> is weighted toward <b>${escapeHtml(focus ? focus.name : "core grocery")}</b>, so the forecast below is recalculated on the selected chain rather than the market total.`;
-    reason.textContent = `Signals used: brand share · chain price index · cheapest SKU ownership · top-brand affinity${focus ? ` · strongest category ${focus.name}` : ""}.`;
+    reason.textContent = `Signals used: brand share · chain price index · cheapest SKU ownership · top-brand affinity${focus ? ` · strongest category ${focus.name}` : ""}. ${FORECAST_QUALITY_NOTE}`;
     next.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Switch brands to compare how the same simulation redistributes demand across chains.';
     return;
   }
@@ -1186,7 +1191,7 @@ function renderExplainability() {
   const social = liveReport.social_dynamics || {};
   const well = liveReport.agent_wellbeing || {};
   lead.innerHTML = `<b>${escapeHtml(activeBrandLabel())}</b> absorbs the simulation differently: <b>${social.households_in_crisis || 0} households</b> are in crisis, stress is <b>${well.avg_stress || 0}</b>, and demand is concentrating into <b>${escapeHtml(focus ? focus.name : "core basket")}</b>.`;
-  reason.textContent = `Top live signals for ${activeBrandLabel()}: ${(events.unique_events || []).join(" · ") || "Simulation events"} · ${insights.join(" · ")}${nextFocus ? ` · secondary lift in ${nextFocus.name}` : ""}`;
+  reason.textContent = `Top live signals for ${activeBrandLabel()}: ${(events.unique_events || []).join(" · ") || "Simulation events"} · ${insights.join(" · ")}${nextFocus ? ` · secondary lift in ${nextFocus.name}` : ""}. ${FORECAST_QUALITY_NOTE}`;
   next.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>For ${escapeHtml(activeBrandLabel())}, stock into ${escapeHtml(focus ? focus.name.toLowerCase() : "lead categories")} first, then review ${escapeHtml(nextFocus ? nextFocus.name.toLowerCase() : "secondary demand")} after the next run.`;
 }
 
@@ -1218,6 +1223,9 @@ async function loadSimulationReport(options = {}) {
     // "—" placeholders. Once a real report exists this branch never runs.
     if (!liveReport) {
       safe(fillKpis, "fillKpis");
+      safe(renderAiSummary, "renderAiSummary");
+      safe(renderActions, "renderActions");
+      safe(renderExplainability, "renderExplainability");
       safe(renderSpotlight, "renderSpotlight");
       safe(renderBrandCmp, "renderBrandCmp");
       safe(renderFamilySegments, "renderFamilySegments");
@@ -1857,7 +1865,7 @@ document.querySelectorAll("#heroTabs button").forEach(btn => btn.onclick = () =>
 const GRID = gel("grid");
 const LS_ORDER = "dm.layout.v1", LS_HIDDEN = "dm.hidden.v1", LS_COLLAPSED = "dm.collapsed.v1";
 const TITLES = {
-  ai: "AI summary", "kpi-units": "Units sold", "kpi-basket": "Avg basket",
+  ai: "AI summary", "kpi-units": "Units sold", "kpi-basket": "8-item basket price",
   "kpi-promos": "Active promotions", "kpi-price": "Price index",
   forecast: "Demand Forecast", actions: "Recommended Actions",
   "brand-cmp": "Brand Comparison", "brand-spot": "Brand Spotlight",

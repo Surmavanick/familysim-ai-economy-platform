@@ -175,6 +175,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .dm-content { padding: 20px 26px 48px; }
+.demo-disclaimer { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line); text-align: center; font-size: 11.5px; color: var(--ink-3); }
 
 /* ─── Brand bar ───────────────────────────────────────────────────────── */
 .brand-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }

@@ -31,7 +31,7 @@
     </nav>
     <div class="dm-side-foot">
       <div class="dm-engine">
-        <div class="row"><span class="k">Retail feed</span><span class="v ok">● Live</span></div>
+        <div class="row"><span class="k">Retail feed</span><span class="v ok">● Demo simulation</span></div>
         <div class="row"><span class="k">Chains</span><span class="v mono" id="engChains">—</span></div>
         <div class="row"><span class="k">SKUs tracked</span><span class="v mono" id="eng-skus">—</span></div>
         <div class="row" id="engScaleRow" style="display:none"><span class="k">Market scale</span><span class="v mono" id="engScale">—</span></div>
@@ -90,25 +90,25 @@
           <button class="w-remove">×</button>
           <div class="k-label"><span class="k-ic ic blue"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM5 7v14h14V7M9 11h6"/></svg></span>Units sold · cycle</div>
           <div class="k-value mono" id="kpiUnits">—</div>
-          <span class="k-delta up">▲ 6.2%</span><div class="k-foot" id="kpiUnitsFoot">across chains</div>
+          <span class="k-delta up">▲ 6.2%</span><div class="k-foot" id="kpiUnitsFoot">across chains · vs previous 30 days</div>
         </div>
         <div class="widget w-sm kpi" data-wid="kpi-basket">
           <button class="w-remove">×</button>
-          <div class="k-label"><span class="k-ic ic green"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12zM6 6L5 3H2M9 20a1 1 0 1 0 0-.01M18 20a1 1 0 1 0 0-.01"/></svg></span>Avg basket</div>
+          <div class="k-label"><span class="k-ic ic green"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12zM6 6L5 3H2M9 20a1 1 0 1 0 0-.01M18 20a1 1 0 1 0 0-.01"/></svg></span>8-item basket price</div>
           <div class="k-value mono" id="kpiBasket">—</div>
-          <span class="k-delta down">▼ 1.8%</span><div class="k-foot">standard 8-item basket</div>
+          <span class="k-delta down">▼ 1.8%</span><div class="k-foot">vs previous 30 days</div>
         </div>
         <div class="widget w-sm kpi" data-wid="kpi-promos">
           <button class="w-remove">×</button>
           <div class="k-label"><span class="k-ic ic amber"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12l-8 8-9-9V3h8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>Active promotions</div>
           <div class="k-value mono" id="kpiPromos">—</div>
-          <span class="k-delta up">▲ 4 new</span><div class="k-foot">live across chains</div>
+          <span class="k-delta up">▲ 4 new</span><div class="k-foot">across chains · vs previous 30 days</div>
         </div>
         <div class="widget w-sm kpi" data-wid="kpi-price">
           <button class="w-remove">×</button>
           <div class="k-label"><span class="k-ic ic coral"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v4h-4"/></svg></span>Price index</div>
           <div class="k-value mono" id="kpiPrice">—</div>
-          <span class="k-delta flat">━ stable</span><div class="k-foot">100 = market avg</div>
+          <span class="k-delta flat">━ stable</span><div class="k-foot">100 = market avg (8-SKU basket) · vs previous 30 days</div>
         </div>
 
         <!-- Hero: Demand forecast -->
@@ -149,7 +149,7 @@
           <div class="w-head"><h3>Brand Spotlight</h3><span class="w-meta" id="spotName">Magniti</span></div>
           <div class="so-kpis" style="grid-template-columns:repeat(2,1fr);margin-bottom:12px">
             <div class="so-kpi"><div class="l">Market share</div><div class="v mono" id="spotShare">—</div></div>
-            <div class="so-kpi"><div class="l">Avg basket</div><div class="v mono" id="spotBasket">—</div></div>
+            <div class="so-kpi"><div class="l">8-item basket price</div><div class="v mono" id="spotBasket">—</div></div>
           </div>
           <div id="chart-brand" style="min-height:140px"></div>
         </div>
@@ -189,8 +189,8 @@
         <div class="widget w-full explain" data-wid="explain">
           <button class="w-remove">×</button>
           <div class="w-head"><h3>Why this forecast</h3><span class="pill info">Explainability</span></div>
-          <p class="lead" id="explainLead">Demand lift is driven by the <b>1st-of-month payday</b> + the <b>mother segment's</b> price sensitivity dropping after salary events.</p>
-          <div class="reason" id="explainReason">Top signals: payday income (+₾300 avg) · mother promo-lift +22% · coffee/dairy concentration · 2 overlapping chain promos. Confidence 87%.</div>
+          <p class="lead" id="explainLead">Demand lift lines up with the <b>1st-of-month payday</b> and the <b>mother segment's</b> price sensitivity dropping after salary events.</p>
+          <div class="reason" id="explainReason">Signals used: salary-account inflow (+₾300 vs daily baseline) · mother segment estimated incremental promo lift +22% · coffee/dairy concentration · 2 overlapping chain promos. Backtest WAPE 12.4% · bias +1.7% · 80% interval +8% to +19% (last 12 weeks).</div>
           <div class="next" id="explainNext"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Pre-stock coffee &amp; dairy before next payday.</div>
         </div>
 
@@ -207,6 +207,8 @@
         <section class="view-panel" id="panel-explain" hidden></section>
         <section class="view-panel" id="panel-settings" hidden></section>
       </div>
+
+      <div class="demo-disclaimer">Demo data generated for product demonstration. Not actual market data.</div>
     </div>
   </div>
 </div>
