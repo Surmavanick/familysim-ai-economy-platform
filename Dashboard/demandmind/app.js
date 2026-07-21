@@ -1164,6 +1164,7 @@ function renderActions() {
   const restockWeekly = restockSku ? Math.max(1, Math.round(restockSku.scopedUnits / 52)) : 0;
   const bufferWeekly = bufferSku ? Math.max(1, Math.round(bufferSku.scopedUnits / 52 * 2)) : 0;
   const catWeekly = topCat ? Math.max(1, Math.round(topCat.units / 52)) : 0;
+  const storeCount = brand ? (BRAND_STORE_COUNT[brand.id] || 0) : Object.values(BRAND_STORE_COUNT).reduce((s, n) => s + n, 0);
   const actions = [
     {
       tone: "green",
@@ -1183,7 +1184,9 @@ function renderActions() {
       tone: "coral",
       cta: "Track",
       title: `${escapeHtml(activeBrandLabel())}: simulation watchlist`,
-      sub: `${llm.agents_with_reasoning || 0} reasoning calls, ${(events.unique_events || []).length || 0} shocks, ${liveBrand && liveBrand.store_count ? `${liveBrand.store_count} active stores, ` : ""}and ${money(econ.richest_household || 0)} to ${money(econ.poorest_household || 0)} household spread are feeding this chain view.`,
+      sub: liveReport
+        ? `${llm.agents_with_reasoning || 0} reasoning calls, ${(events.unique_events || []).length || 0} shocks, ${liveBrand && liveBrand.store_count ? `${liveBrand.store_count} active stores, ` : ""}and ${money(econ.richest_household || 0)} to ${money(econ.poorest_household || 0)} household spread are feeding this chain view.`
+        : `${storeCount.toLocaleString()} real stores and ~${DEMO_TOTAL_HOUSEHOLDS} sample households are feeding this chain's demand model.`,
       icon: '<path d="M3 17l6-6 4 4 8-8"/>'
     },
     {
