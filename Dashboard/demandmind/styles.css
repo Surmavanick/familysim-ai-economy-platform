@@ -292,7 +292,7 @@ a { color: inherit; text-decoration: none; }
    applied to the CHART side instead, leaving blank space under its chart.
    Flex column + flex:1 list makes it fill that capped height exactly
    (scrolling for whatever doesn't fit) whichever widget ends up taller. */
-.widget[data-wid="actions"] { display: flex; flex-direction: column; max-height: 520px; }
+.widget[data-wid="actions"] { display: flex; flex-direction: column; max-height: 400px; }
 #actionsList { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
 .action { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line-soft); }
 .action:last-child { border-bottom: 0; }
