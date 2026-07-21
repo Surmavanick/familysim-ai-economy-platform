@@ -1156,6 +1156,14 @@ function renderActions() {
   const social = liveReport ? (liveReport.social_dynamics || {}) : {};
   const econ = liveReport ? (liveReport.economic_summary || {}) : {};
   const llm = liveReport ? (liveReport.llm_system || {}) : {};
+  // Weekly run-rate off each SKU's annual scopedUnits — same basis used
+  // throughout this dashboard for per-SKU totals, just divided down to a
+  // reorder-sized window instead of inventing a separate number.
+  const restockSku = scoped[1];
+  const bufferSku = scoped[2];
+  const restockWeekly = restockSku ? Math.max(1, Math.round(restockSku.scopedUnits / 52)) : 0;
+  const bufferWeekly = bufferSku ? Math.max(1, Math.round(bufferSku.scopedUnits / 52 * 2)) : 0;
+  const catWeekly = topCat ? Math.max(1, Math.round(topCat.units / 52)) : 0;
   const actions = [
     {
       tone: "green",
@@ -1177,6 +1185,27 @@ function renderActions() {
       title: `${escapeHtml(activeBrandLabel())}: simulation watchlist`,
       sub: `${llm.agents_with_reasoning || 0} reasoning calls, ${(events.unique_events || []).length || 0} shocks, ${liveBrand && liveBrand.store_count ? `${liveBrand.store_count} active stores, ` : ""}and ${money(econ.richest_household || 0)} to ${money(econ.poorest_household || 0)} household spread are feeding this chain view.`,
       icon: '<path d="M3 17l6-6 4 4 8-8"/>'
+    },
+    {
+      tone: "blue",
+      cta: "Order",
+      title: `${escapeHtml(activeBrandLabel())}: reorder ${escapeHtml(restockSku ? restockSku.name : "top SKU")}`,
+      sub: `~${restockWeekly.toLocaleString()} units covers the next 7 days at the current run-rate — plan this purchase before stock runs thin.`,
+      icon: '<path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8"/>'
+    },
+    {
+      tone: "green",
+      cta: "Adjust",
+      title: `${escapeHtml(activeBrandLabel())}: raise safety stock on ${escapeHtml(bufferSku ? bufferSku.name : "a core SKU")}`,
+      sub: `Hold ~${bufferWeekly.toLocaleString()} units on hand (2-week buffer) so a demand spike doesn't turn into a stockout.`,
+      icon: '<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/>'
+    },
+    {
+      tone: "amber",
+      cta: "Plan",
+      title: `${escapeHtml(activeBrandLabel())}: ${escapeHtml(topCat ? topCat.name.toLowerCase() : "category")} purchasing plan`,
+      sub: `~${catWeekly.toLocaleString()} units/week of ${escapeHtml(topCat ? topCat.name.toLowerCase() : "this category")} moved through the selected chain — size the next purchase order to match.`,
+      icon: '<path d="M6 6h15l-1.5 9h-12zM6 6L5 3H2M9 20a1 1 0 1 0 0-.01M18 20a1 1 0 1 0 0-.01"/>'
     }
   ];
 
@@ -1189,6 +1218,8 @@ function renderActions() {
       <a href="#" class="a-cta">${escapeHtml(action.cta)}</a>
     </div>
   `).join("");
+  const pill = gel("actionsOpenPill");
+  if (pill) pill.textContent = `${actions.length} open`;
 }
 
 // Replaces a single opaque "Confidence NN%" score: a backtest error rate,

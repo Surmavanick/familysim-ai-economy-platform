@@ -286,6 +286,13 @@ a { color: inherit; text-decoration: none; }
 .dm-tabs button.active { background: var(--panel); color: var(--ink); box-shadow: var(--shadow); }
 
 /* Actions / status / pills */
+/* Capped + scrollable so a longer recommendation list has a sane ceiling,
+   plus align-self so this widget never gets stretched by CSS Grid's default
+   row-stretch to match its taller row partner (Demand Forecast) — that
+   stretch was leaving blank rounded space below the capped list instead of
+   just letting the card end at its own natural height. */
+#actionsList { max-height: 280px; overflow-y: auto; }
+.widget[data-wid="actions"] { align-self: start; }
 .action { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line-soft); }
 .action:last-child { border-bottom: 0; }
 .action .badge-ic { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; flex: 0 0 32px; }
