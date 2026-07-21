@@ -286,14 +286,6 @@ a { color: inherit; text-decoration: none; }
 .dm-tabs button.active { background: var(--panel); color: var(--ink); box-shadow: var(--shadow); }
 
 /* Actions / status / pills */
-/* max-height on the widget itself caps how tall its own content (now 6
-   cards, was 3) can push it — without this, 6 full cards made this widget
-   naturally taller than its row partner (Demand Forecast), so grid stretch
-   applied to the CHART side instead, leaving blank space under its chart.
-   Flex column + flex:1 list makes it fill that capped height exactly
-   (scrolling for whatever doesn't fit) whichever widget ends up taller. */
-.widget[data-wid="actions"] { display: flex; flex-direction: column; max-height: 400px; }
-#actionsList { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
 .action { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line-soft); }
 .action:last-child { border-bottom: 0; }
 .action .badge-ic { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; flex: 0 0 32px; }

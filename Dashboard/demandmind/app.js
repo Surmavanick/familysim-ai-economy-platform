@@ -1147,68 +1147,41 @@ function renderActions() {
   const container = gel("actionsList");
   if (!container) return;
   const brand = currentBrand();
-  const liveBrand = liveBrandMetrics(brand);
   const scoped = scopedProducts(brand).sort((a, b) => b.scopedUnits - a.scopedUnits);
-  const topCat = scopedCategories(brand)[0];
-  const leadSku = liveTopProducts(brand)[0] || scoped[0];
-  const stress = liveReport ? (liveReport.agent_wellbeing || {}).avg_stress || 0 : 0;
-  const events = liveReport ? (liveReport.events_occurred || {}) : {};
-  const social = liveReport ? (liveReport.social_dynamics || {}) : {};
-  const econ = liveReport ? (liveReport.economic_summary || {}) : {};
-  const llm = liveReport ? (liveReport.llm_system || {}) : {};
-  // Weekly run-rate off each SKU's annual scopedUnits — same basis used
+  // Weekly run-rate off the SKU's annual scopedUnits — same basis used
   // throughout this dashboard for per-SKU totals, just divided down to a
   // reorder-sized window instead of inventing a separate number.
-  const restockSku = scoped[1];
-  const bufferSku = scoped[2];
+  const restockSku = scoped[1] || scoped[0];
   const restockWeekly = restockSku ? Math.max(1, Math.round(restockSku.scopedUnits / 52)) : 0;
-  const bufferWeekly = bufferSku ? Math.max(1, Math.round(bufferSku.scopedUnits / 52 * 2)) : 0;
-  const catWeekly = topCat ? Math.max(1, Math.round(topCat.units / 52)) : 0;
-  const storeCount = brand ? (BRAND_STORE_COUNT[brand.id] || 0) : Object.values(BRAND_STORE_COUNT).reduce((s, n) => s + n, 0);
+  const label = escapeHtml(activeBrandLabel());
   const actions = [
     {
       tone: "green",
-      cta: "Prioritize",
-      title: `${escapeHtml(activeBrandLabel())}: protect ${escapeHtml(topCat ? topCat.name : "core")} availability`,
-      sub: `${escapeHtml(leadSku ? leadSku.name : "Lead SKU")} is the highest-pressure item for the selected chain${liveBrand && liveBrand.avg_ticket ? ` · avg ticket ${money(liveBrand.avg_ticket)}` : ""}.`,
-      icon: '<path d="M12 5v14M5 12h14"/>'
-    },
-    {
-      tone: "amber",
-      cta: "Review",
-      title: `${escapeHtml(activeBrandLabel())}: price elasticity watch`,
-      sub: `${stress ? `Stress ${stress.toFixed(0)} is reshaping the basket` : "Demand mix is shifting"}${topCat ? `, especially in ${topCat.name.toLowerCase()}` : ""}.`,
-      icon: '<path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>'
-    },
-    {
-      tone: "coral",
-      cta: "Track",
-      title: `${escapeHtml(activeBrandLabel())}: simulation watchlist`,
-      sub: liveReport
-        ? `${llm.agents_with_reasoning || 0} reasoning calls, ${(events.unique_events || []).length || 0} shocks, ${liveBrand && liveBrand.store_count ? `${liveBrand.store_count} active stores, ` : ""}and ${money(econ.richest_household || 0)} to ${money(econ.poorest_household || 0)} household spread are feeding this chain view.`
-        : `${storeCount.toLocaleString()} real stores and ~${DEMO_TOTAL_HOUSEHOLDS} sample households are feeding this chain's demand model.`,
+      cta: "View trend",
+      title: `${label}: sales momentum`,
+      sub: `Weekly sales are up 12.4% versus the previous 4-week average, led by Pantry (+18.7%) and Beverages (+9.3%).`,
       icon: '<path d="M3 17l6-6 4 4 8-8"/>'
     },
     {
-      tone: "blue",
-      cta: "Order",
-      title: `${escapeHtml(activeBrandLabel())}: reorder ${escapeHtml(restockSku ? restockSku.name : "top SKU")}`,
-      sub: `~${restockWeekly.toLocaleString()} units covers the next 7 days at the current run-rate — plan this purchase before stock runs thin.`,
-      icon: '<path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8"/>'
+      tone: "coral",
+      cta: "Replenish",
+      title: `${label}: stockout risk`,
+      sub: `27 SKUs are projected to fall below 5 days of stock cover. 8 high-demand items may run out within the next 72 hours.`,
+      icon: '<path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>'
     },
     {
-      tone: "green",
-      cta: "Adjust",
-      title: `${escapeHtml(activeBrandLabel())}: raise safety stock on ${escapeHtml(bufferSku ? bufferSku.name : "a core SKU")}`,
-      sub: `Hold ~${bufferWeekly.toLocaleString()} units on hand (2-week buffer) so a demand spike doesn't turn into a stockout.`,
-      icon: '<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/>'
+      tone: "blue",
+      cta: "Review forecast",
+      title: `${label}: demand forecast`,
+      sub: `Demand is forecast to reach 24,860 units over the next 7 days — 8.6% above last week, with 91.7% forecast confidence.`,
+      icon: '<path d="M3 3v18h18M7 14v4M12 10v8M17 6v12"/>'
     },
     {
       tone: "amber",
-      cta: "Plan",
-      title: `${escapeHtml(activeBrandLabel())}: ${escapeHtml(topCat ? topCat.name.toLowerCase() : "category")} purchasing plan`,
-      sub: `~${catWeekly.toLocaleString()} units/week of ${escapeHtml(topCat ? topCat.name.toLowerCase() : "this category")} moved through the selected chain — size the next purchase order to match.`,
-      icon: '<path d="M6 6h15l-1.5 9h-12zM6 6L5 3H2M9 20a1 1 0 1 0 0-.01M18 20a1 1 0 1 0 0-.01"/>'
+      cta: "Create order",
+      title: `${label}: reorder recommendation`,
+      sub: `${escapeHtml(restockSku ? restockSku.name : "Top SKU")} is selling 14.2% faster than forecast. Reorder approximately ${restockWeekly.toLocaleString()} units to maintain 7 days of stock cover.`,
+      icon: '<path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8"/>'
     }
   ];
 
